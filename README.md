@@ -16,7 +16,6 @@ _(em breve...)_
 -   ✅ **PHP 8+** com CodeIgniter 4
 -   ✅ **MySQL 8**
 -   ✅ **JavaScript nativo** para interações com modais e asides
--   ✅ **Tailwind CSS** para estilização moderna e responsiva
 
 ---
 

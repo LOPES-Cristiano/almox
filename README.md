@@ -7,7 +7,7 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ## 📸 Prévia da Interface
 
-_(adicione prints aqui, se desejar)_
+_(em breve...)_
 
 ---
 

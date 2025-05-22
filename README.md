@@ -1,6 +1,6 @@
 # 🗃️ AlmoX - Sistema de Gestão de Almoxarifado
 
-**AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL** e **Tailwind CSS**.  
+**AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL**.  
 O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas de estoque, com foco em simplicidade, desempenho e usabilidade.
 
 ---

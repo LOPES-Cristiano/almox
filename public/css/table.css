@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    /* Cinzas */
+    --cinza-suave: #e4e4e4;
+    --cinza-claro: #dcdcdc15;
+    --cinza-claro-side: #4646462a;
+    --cinza-medio: #d1d1d1;
+    --cinza-escuro: #696969;
+    --cinza-muito-escuro: #464646;
+    --cinza-escuro-extra: #2f4f4f;
+
+    /* Pretos */
+    --preto-claro: #28282b;
+    --preto-medio: #1c1c1c;
+    --preto: #000000;
+    --preto-azulado: #0a0a0a;
+    --preto-fosco: #101010;
+
+    /* Amarelos */
+    --amarelo-claro: #ffffe0;
+    --amarelo: #ffff00;
+    --amarelo-ouro: #ffd700;
+    --amarelo-escuro: #ffa500;
+    --amarelo-mostarda: #ffdb58;
+    --amarelo-pastel: #fafad2;
+
+    /* Azuis */
+    --azul-claro: #add8e6;
+    --azul: #0000ff;
+    --azul-medio: #0000cd;
+    --azul-escuro: #020d2b;
+    --azul-marinho: #0000ff;
+    --azul-celeste: #87ceeb;
+
+    /* Vermelhos */
+    --vermelho-claro: #ffa07a;
+    --vermelho: #ff0000;
+    --vermelho-medio: #dc143c;
+    --vermelho-tomate: #ff6347;
+    --vermelho-escuro: #8b0000;
+    --vermelho-sangue: #b22222;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: var(--cinza-muito-escuro);
+    margin-top: 16px;
+    background-color: rgba(238, 238, 238, 0.877);
+    border-radius: 1px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: var(--preto-claro);
+}
+
+thead th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--cinza-suave);
+    border-bottom: 1px solid var(--cinza-medio);
+}
+
+tbody td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--cinza-medio);
+}
+
+tbody tr:hover {
+    background-color: rgb(211, 211, 211);
+}
+
+.btnEdit {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--azul-marinho);
+    color: var(--azul-marinho);
+    border-radius: 6px;
+    font-weight: 500;
+    transition: 0.5s ease;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.btnEdit:hover {
+    background-color: var(--azul-marinho);
+    border: 1px solid var(--cinza-suave);
+    color: var(--cinza-suave);
+    cursor: pointer;
+}
+
+.tableButton {
+    padding: 10px 18px;
+    background-color: var(--preto-medio);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+    margin-right: auto;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.tableButton:hover {
+    background-color: var(--preto-azulado);
+    cursor: pointer;
+}

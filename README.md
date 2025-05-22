@@ -1,87 +1,120 @@
-🗃️ AlmoX - Sistema de Gestão de Almoxarifado
-AlmoX é um sistema de controle de estoque para almoxarifados, desenvolvido com PHP (CodeIgniter 4), MySQL e Tailwind CSS. O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas de estoque, com foco em simplicidade, desempenho e usabilidade.
+# 🗃️ AlmoX - Sistema de Gestão de Almoxarifado
 
-📸 Prévia da Interface
+**AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL** e **Tailwind CSS**.  
+O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas de estoque, com foco em simplicidade, desempenho e usabilidade.
 
-🔧 Tecnologias Utilizadas
-✅ PHP 8+ com CodeIgniter 4
+---
 
-✅ MySQL 8
+## 📸 Prévia da Interface
 
-✅ JavaScript nativo para interações com modais e asides
+_(adicione prints aqui, se desejar)_
 
-📁 Estrutura do Projeto
+---
 
+## 🔧 Tecnologias Utilizadas
+
+-   ✅ **PHP 8+** com CodeIgniter 4
+-   ✅ **MySQL 8**
+-   ✅ **JavaScript nativo** para interações com modais e asides
+-   ✅ **Tailwind CSS** para estilização moderna e responsiva
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
 /app
 ├── Controllers/
-│ └── Pessoa.php
+│   └── Pessoa.php
 ├── Models/
-│ └── PessoaModel.php
+│   └── PessoaModel.php
 ├── Views/
-│ ├── layout/
-│ ├── pessoas/
-│ │ ├── index.php
-│ │ └── form.php
+│   ├── layout/
+│   └── pessoas/
+│       ├── index.php
+│       └── form.php
 /public
-│ ├── css/
-│ ├── js/
+│   ├── css/
+│   └── js/
 .env
 composer.json
+```
 
-Funcionalidades
-👤 Cadastro e edição de pessoas
+---
 
-📦 Cadastro de produtos
+## ✅ Funcionalidades
 
-📈 Controle de entradas e saídas
+-   👤 Cadastro e edição de pessoas
+-   📦 Cadastro de produtos
+-   📈 Controle de entradas e saídas
+-   🔍 Filtros e pesquisa
+-   📊 Visualização de saldo de estoque
+-   🧾 Geração de relatórios _(em breve)_
+-   🌙 Formulários em modo **Aside** com overlay moderno
 
-🔍 Filtros e pesquisa
+---
 
-📊 Visualização de saldo de estoque
+## ▶️ Como rodar localmente
 
-🧾 Geração de relatórios (em breve)
+### 1. Clone o repositório:
 
-🌙 Modo Aside para formulários com overlay moderno
-
-▶️ Como rodar localmente
-Clone o repositório:
-
+```bash
 git clone https://github.com/seu-usuario/almox.git
 cd almox
+```
 
-Instale as dependências:
+### 2. Instale as dependências:
 
+```bash
 composer install
+```
 
-Configure o banco de dados em .env:
+### 3. Configure o banco de dados em `.env`:
 
+```
 database.default.hostname = localhost
 database.default.database = almox
 database.default.username = root
 database.default.password =
 database.default.DBDriver = MySQLi
+```
 
-Rode o servidor:
+### 4. Rode o servidor:
 
+```bash
 php spark serve
+```
 
-Acesse:
+### 5. Acesse no navegador:
 
-http://localhost:8080
+[http://localhost:8080](http://localhost:8080)
 
-📌 Padrões e Organização
-Estrutura MVC com organização por módulos
+---
 
-Componentes reutilizáveis para formulários
+## 📌 Padrões e Organização
 
-✨ Possíveis Melhorias Futuras
-Autenticação com permissões (ACL)
+-   Estrutura **MVC**
+-   Organização modular por componentes reutilizáveis
+-   Separação clara entre controle, visualização e regra de negócio
 
-Responsividade mobile
+---
 
-Relatórios em PDF
+## ✨ Possíveis Melhorias Futuras
 
-Dashboard com gráficos
+-   🔐 Autenticação com permissões (ACL)
+-   📱 Responsividade total para mobile
+-   📄 Geração de relatórios em PDF
+-   📊 Dashboard com gráficos interativos
 
-🤝 Contribuição
-Sinta-se à vontade para contribuir com melhorias ou sugestões! Basta abrir um Pull Request ou uma Issue.
+---
+
+## 🤝 Contribuição
+
+Sinta-se à vontade para contribuir com melhorias ou sugestões!  
+Basta abrir um **Pull Request** ou registrar uma **Issue** neste repositório.
+
+---
+
+## ⭐ Licença
+
+Este projeto é open-source sob a licença MIT.

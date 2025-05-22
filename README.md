@@ -1,5 +1,5 @@
 # 🗃️ AlmoX - Sistema de controle de estoque
-![Banner do Projeto](./almox-banner.png)
+
 
 
 **AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL**.  

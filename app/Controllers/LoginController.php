@@ -18,31 +18,30 @@ class LoginController extends BaseController
         $senha = $this->request->getPost('senha');
 
         $usuarioModel = new UsuarioModel();
-        $usuario = $usuarioModel
-            ->where('usu_email', $email)
-            ->where('usu_senha', $senha)
-            ->first();
+        $usuario = $usuarioModel->where('usu_email', $email)->first();
 
-        if ($usuario) {
-            $pessoaModel = new PessoaModel();
-            $pessoa = $pessoaModel
-                ->where('pes_id', $usuario['pes_id'])   
-                ->first();
-
-            session()->set('usuario_id', $usuario['usu_id']);
-            session()->set('usuario_email', $usuario['usu_email']);
-            session()->set('usuario_nome', $pessoa ? $pessoa['pes_nome'] : 'Sem nome');
-            session()->set('usuario_pes_id', $usuario['pes_id']);
-
-            return redirect()->to('/home');
-        } else {
-            return redirect()->back()->with('erro', 'Email ou senha inválidos');
+        if (!$usuario) {
+            return redirect()->back()->with('erro', 'Email ou Senha incorreta.')->withInput();
         }
+
+        if (!password_verify($senha, $usuario['usu_senha'])) {
+            return redirect()->back()->with('erro', 'Email ou Senha incorreta.')->withInput();
+        }
+
+        $pessoaModel = new PessoaModel();
+        $pessoa = $pessoaModel->where('pes_id', $usuario['pes_id'])->first();
+
+        session()->set('usuario_id', $usuario['usu_id']);
+        
+        session()->set('usuario_tipo_descricao', $pessoa['pes_tipo_descricao'] ?? '');
+
+        return redirect()->to('/home');
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/');
+
+        return redirect()->to('/')->with('sucesso', 'Logout efetuado com sucesso!');
     }
 }

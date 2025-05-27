@@ -5,8 +5,7 @@
     <title>AlmoX</title>
     <meta name="description" content="Projeto para gerenciamento de estoque">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
-    <link rel="stylesheet" href="<?= base_url('css/global.css')?>">
+    <link rel="stylesheet" href="<?= base_url('css/login.css')?>">
 </head>
 <body>
   <div class="container">
@@ -29,6 +28,7 @@
 </form>
 
   </div>
+  <?= view('partials/modal_spinner') ?>
 </body>
 
 </html>

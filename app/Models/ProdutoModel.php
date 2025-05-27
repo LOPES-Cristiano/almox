@@ -10,4 +10,13 @@ class ProdutoModel extends Model
     protected $primaryKey = 'pro_id';
     protected $allowedFields = ['pro_descricao', 'pro_datacadastro', 'pro_observacao', 'pro_ativo', 'procat_id', 'proum_id'];
     protected $returnType = 'array';
+
+    public function countAtivos() {
+        return $this->where('pes_ativo', 1)->countAllResults();
+    }
+    
+    public function countInativos() {
+        return $this->where('pes_ativo', 0)->countAllResults();
+    }
+    
 }

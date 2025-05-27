@@ -1,14 +1,15 @@
 <?= $this->extend('layout') ?>
 
+
 <?= $this->section('styles') ?>
 <link rel="stylesheet" href="<?= base_url('css/forms.css')?>">
 <link rel="stylesheet" href="<?= base_url('css/table.css')?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-
-<button id="btnOpenInsert" class="tableButton"  style="margin-bottom: 15px;">Inserir Pessoa</button>
-
+<div class="buttons">
+    <button id="btnOpenInsert" class="tableButton"  style="margin-bottom: 15px;"><img src="<?= base_url('svg/square-pen.svg') ?>" alt="ícone de caneta">Inserir Pessoa</button>
+</div>
 
 <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; margin-top: 10px;">
     <thead>
@@ -19,6 +20,7 @@
             <th>Data Cadastro</th>
             <th>Tipo</th>
             <th>Ativo</th>
+            <th>Observação</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -28,7 +30,7 @@
                 <tr data-id="<?= esc($pessoa['pes_id']) ?>" 
                 data-nome="<?= esc($pessoa['pes_nome']) ?>" 
                 data-email="<?= esc($pessoa['usu_email']) ?>" 
-                data-tipo="<?= esc($pessoa['pest_descricao']) ?>" 
+                data-tipo="<?= esc($pessoa['pest_id']) ?>"
                 data-ativo="<?= esc($pessoa['pes_ativo']) ?>" 
                 data-observacao="<?= esc($pessoa['pes_observacao']) ?>">
 
@@ -37,7 +39,14 @@
                     <td><?= esc($pessoa['usu_email']) ?></td>
                     <td><?= esc($pessoa['pes_datacadastro']) ?></td>
                     <td><?= esc($pessoa['pest_descricao']) ?></td>
-                    <td><?= $pessoa['pes_ativo'] ? 'Sim' : 'Não' ?></td>
+                    <td><?= esc($pessoa['pes_observacao']) ?></td>
+                    <td>
+                    <?php if ($pessoa['pes_ativo']): ?>
+                        <img src="<?= base_url('svg/check.svg') ?>" alt="Ativo" width="20" height="20">
+                    <?php else: ?>
+                        <img src="<?= base_url('svg/x.svg') ?>" alt="Inativo" width="20" height="20">
+                    <?php endif; ?>
+                    </td>
 
                     <td>
                         <button class="btnEdit" data-id="<?= esc($pessoa['pes_id']) ?>" >Editar</button>
@@ -62,17 +71,35 @@
 
         <input type="hidden" name="pes_id" id="pes_id" value="" >
 
-        <label for="nome">Nome:</label><br>
-        <input type="text" name="nome" id="nome"  class="inputForm" required><br><br>
+        <label class="required" for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome"  class="inputForm" required>
 
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" id="email" class="inputForm"required><br><br>
+        <label class="required" for="email">Email:</label>
+        <input type="email" name="email" id="email" class="inputForm"required>
 
-        <label for="senha">Senha:</label><br>
-        <input type="password" name="senha" id="senha" class="inputForm"><br><small><em>Deixe em branco para manter a senha atual no editar.</em></small><br><br>
+        <label class="required" for="senha">Senha:</label>
+        <input type="password" name="senha" id="senha" class="inputForm"><small><em>Deixe em branco para manter a senha atual no editar.</em></small>
 
-        <label for="observacao">Observação:</label><br>
-        <textarea name="observacao" id="observacao" class="inputForm"></textarea><br><br>
+        <label class="required" for="tipo">Tipo de Pessoa:</label>
+        <select name="tipo" id="tipo" class="inputForm" required>
+            <option value="">Selecione o tipo</option>
+            <?php if (!empty($tipos)): ?>
+            <?php foreach ($tipos as $tipo): ?>
+                <option value="<?= $tipo['pest_id'] ?>"><?= $tipo['pest_descricao'] ?></option>
+            <?php endforeach; ?>
+            <?php else: ?>
+                <option disabled>Não há nenhum registro</option>
+            <?php endif; ?>
+        </select>
+
+        <label for="observacao">Observação:</label>
+        <input type="text" name="observacao" id="observacao" class="inputForm">
+
+        <label class="custom-checkbox required" for="ativo">
+            <input type="checkbox" id="ativo" name="ativo" value="1">
+            <span class="checkmark"></span>
+            Ativo
+            </label>
 
         <button type="submit" class="button-submit" id="btnSubmit">Salvar</button>
     </form>
@@ -88,7 +115,7 @@
     btnOpenInsert.addEventListener('click', () => {
         formPessoa.reset();
         modalAside.classList.add('open');
-        overlay.style.display = 'block';
+        overlay.style.display = 'flex';
         modalAside.querySelector('h2').textContent = 'Inserir Pessoa';
         formPessoa.action = "<?= base_url('home/usuarios/salvar') ?>";
         document.getElementById('pes_id').value = '';
@@ -112,21 +139,23 @@
         const email = tr.getAttribute('data-email');
         const observacao = tr.getAttribute('data-observacao') || '';
         const tipo = tr.getAttribute('data-tipo') || '';
-    
-
+        const ativo = tr.getAttribute('data-ativo');
+        
         formPessoa.reset();
         modalAside.classList.add('open');
-        overlay.style.display = 'block';
+        overlay.style.display = 'flex';
         modalAside.querySelector('h2').textContent = 'Editar Pessoa';
         formPessoa.action = "<?= base_url('home/usuarios/atualizar/') ?>" + pes_id;
-
+        
         document.getElementById('pes_id').value = pes_id;
         document.getElementById('nome').value = nome;
         document.getElementById('email').value = email;
         document.getElementById('senha').value = '';
         document.getElementById('senha').required = false;
+        document.getElementById('tipo').value = tipo;
+        document.getElementById('ativo').checked = ativo === '1';
         document.getElementById('observacao').value = observacao;
-
+        
     });
 });
 </script>

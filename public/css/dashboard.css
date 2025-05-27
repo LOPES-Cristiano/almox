@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root {
+    --amarelo: #ffcc00;
+    --amarelo-claro: #fff8cc;
+    --amarelo-escuro: #cca300;
+
+    /* Cinzas */
+    --cinza-suave: #e4e4e4;
+    --cinza-claro: #dcdcdc15;
+    --cinza-claro-side: #4646462a;
+    --cinza-medio: #d1d1d1;
+    --cinza-escuro: #696969;
+    --cinza-muito-escuro: #464646;
+    --cinza-escuro-extra: #2f4f4f;
+
+    /* Pretos */
+    --preto-claro: #28282b;
+    --preto-medio: #1c1c1c;
+    --preto: #000000;
+    --preto-azulado: #0a0a0a;
+    --preto-fosco: #222222;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cinza-suave);
+    margin: 0;
+    padding: 0;
+    color: var(--preto-fosco);
+}
+
+.dashboard-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.card-pequeno,
+.chart-box {
+    flex: 1 1 300px;
+    background: var(--cinza-medio);
+    border-radius: 20px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    padding: 25px;
+    color: var(--preto-fosco);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+}
+
+.card-pequeno:hover,
+.chart-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.28);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: var(--amarelo);
+    transition: color 0.3s ease;
+}
+
+.card-pequeno:hover .card-icon {
+    animation: float 1.6s ease-in-out infinite;
+}
+
+.card-pequeno h3 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.chart-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--preto-fosco);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-content p {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    width: 100%;
+    padding-left: 18px;
+    position: relative;
+}
+
+.card-content p::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--amarelo-escuro);
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.card-content p:last-child::before {
+    color: #e94b3cff;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 260px;
+}
+
+/* Animação para ícone */
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .dashboard-flex-container {
+        justify-content: center;
+    }
+    .card-pequeno,
+    .chart-box {
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+}

@@ -19,9 +19,9 @@
 
     /* Amarelos */
     --amarelo-claro: #ffffe0;
-    --amarelo: #ffff00;
+    --amarelo: #ffb000;
     --amarelo-ouro: #ffd700;
-    --amarelo-escuro: #ffa500;
+    --amarelo-escuro: #ffa600;
     --amarelo-mostarda: #ffdb58;
     --amarelo-pastel: #fafad2;
 
@@ -42,69 +42,118 @@
     --vermelho-sangue: #b22222;
 }
 
-.form {
+#formProduto,
+#formCategoria,
+#formUnidade,
+#formUsuario,
+#formPessoa {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     gap: 10px;
-    background-color: #ffffff;
-    padding: 30px;
-    width: 450px;
-    border-radius: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--cinza-medio);
+    font-family: 'Poppins', sans-serif;
 }
 
-::placeholder {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+#modalTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cinza-medio);
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.form button {
-    align-self: flex-end;
+.required {
+    font-weight: bolder;
+    color: var(--amarelo-ouro);
 }
 
 .inputForm {
-    border: 1.5px solid #ecedec;
-    border-radius: 10px;
-    height: 50px;
+    border: transparent;
+    border-radius: 3px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding: 10px;
     transition: 0.2s ease-in-out;
     width: 100%;
-}
-
-.input {
-    margin-left: 10px;
-    border-radius: 10px;
-    border: none;
-    width: 100%;
-    height: 100%;
-}
-
-.input:focus {
     outline: none;
+    background-color: var(--cinza-medio);
+    font-size: 1rem;
 }
 
-.inputForm:focus-within {
-    border: 1.5px solid #2d79f3;
+.custom-checkbox input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox .checkmark {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: var(--preto-claro);
+    border-radius: 5px;
+    border: 2px solid var(--cinza-medio);
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: var(--amarelo-ouro);
+    border-color: var(--amarelo-ouro);
+}
+
+.custom-checkbox .checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 0;
+    width: 5px;
+    height: 10px;
+    border: solid var(--preto-fosco);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked + .checkmark::after {
+    display: block;
+}
+
+.custom-checkbox {
+    cursor: pointer;
+    user-select: none;
+    color: var(--cinza-suave);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .button-submit {
-    margin: 20px 0 10px 0;
-    background-color: #151717;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--amarelo-ouro);
+    color: var(--preto-fosco);
+    text-decoration: none;
+    transition: 0.2s;
     border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 10px;
-    height: 50px;
-    width: 100%;
-    cursor: pointer;
+    border-right: 3px solid transparent;
+    margin-left: auto;
 }
 
 .button-submit:hover {
-    background-color: #252727;
+    color: var(--amarelo-ouro);
+    background-color: var(--preto-fosco);
+    border-right: 3px solid var(--amarelo-ouro);
+    cursor: pointer;
 }
 
 .overlay {
@@ -122,9 +171,10 @@ aside.modal-aside {
     position: fixed;
     top: 0;
     right: -400px;
-    width: 400px;
+    max-width: 100%;
+    width: min(400px, 100vw);
     height: 100vh;
-    background: #fff;
+    background: var(--preto-claro);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease;
     z-index: 1001;
@@ -138,11 +188,13 @@ aside.modal-aside.open {
 
 aside.modal-aside .close-btn {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     border: none;
     background: transparent;
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 5px;
+    left: 350px;
+    color: var(--vermelho-tomate);
+    padding: 5px;
 }

@@ -8,7 +8,7 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ## 📸 Prévia da Interface
 
-_(em breve...)_
+![Interface](./1.png)
 
 ---
 

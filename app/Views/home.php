@@ -7,205 +7,235 @@
 <?= $this->section('content') ?>
 <div class="dashboard-header">
     <h1>Dashboard</h1>
-<div class="dashboard-flex-container">
+</div>
 
-    <div class="card-pequeno card-pessoas">
-        <div class="card-icon">👤</div>
-        <h3>Pessoas</h3>
-        <div class="card-content">
-            <p>Ativas: <?= $pessoasAtivas ?></p>
-            <p>Inativas: <?= $pessoasInativas ?></p>
+<div class="dashboard-flex-container">
+    
+        <div class="card-pequeno card-pessoas">
+            <div class="card-icon">👤</div>
+            <div class="card-content">
+                <h3>Pessoas</h3>
+                <p>Ativas: <span style="color:var(--amarelo-ouro)"><?= $pessoasAtivas ?></span></p>
+                <p>Inativas: <span style="color:var(--preto-medio)"><?= $pessoasInativas ?></span></p>
+            </div>
         </div>
+
+        <div class="card-pequeno card-produtos">
+            <div class="card-icon">📦</div>
+            <div class="card-content">
+                <h3>Produtos</h3>
+                <p>Ativos: <span style="color:var(--amarelo-ouro)"><?= $produtosAtivos ?></span></p>
+                <p>Inativos: <span style="color:var(--preto-medio)"><?= $produtosInativos ?></span></p>
+            </div>
+        </div>
+   
+
+    <div class="chart-box">
+        <h4 class="chart-title">Últimas Movimentações</h4>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($ultimasMovimentacoes as $mov): ?>
+                    <tr>
+                        <td><?= date('d/m/Y H:i', strtotime($mov['mov_data'])) ?></td>
+                        <td><?= esc($mov['tipo']) ?></td>
+                        <td><?= esc($mov['produto']) ?></td>
+                        <td><?= esc($mov['quantidade']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 
-    <div class="card-pequeno card-produtos">
-        <div class="card-icon">📦</div>
-        <h3>Produtos</h3>
-        <div class="card-content">
-            <p>Ativos: <?= $produtosAtivos ?></p>
-            <p>Inativos: <?= $produtosInativos ?></p>
-        </div>
+    <div class="chart-box">
+        <h4 class="chart-title">Maiores Estoques</h4>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($maioresEstoques as $item): ?>
+                    <tr>
+                        <td><?= esc($item['produto']) ?></td>
+                        <td><?= esc($item['estoque']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 
     <div class="chart-box">
         <h4 class="chart-title">Gráfico de Pessoas</h4>
-        <canvas id="chartPessoas"></canvas>
-    </div>
-
-    <div class="chart-box">
-        <h4 class="chart-title">Gráfico de Produtos</h4>
-        <canvas id="chartProdutos"></canvas>
+        <div id="chartPessoas" class="chart-echarts"></div>
     </div>
 
     <div class="chart-box">
         <h4 class="chart-title">Pessoas por Tipo</h4>
-        <canvas id="chartPessoasTipo"></canvas>
+        <div id="chartPessoasTipo" class="chart-echarts"></div>
     </div>
 
     <div class="chart-box">
         <h4 class="chart-title">Produtos por Categoria</h4>
-        <canvas id="chartProdutosCategoria"></canvas>
+        <div id="chartProdutosCategoria" class="chart-echarts"></div>
     </div>
 
     <div class="chart-box">
         <h4 class="chart-title">Produtos por Unidade de Medida</h4>
-        <canvas id="chartProdutosUnidade"></canvas>
+        <div id="chartProdutosUnidade" class="chart-echarts"></div>
     </div>
 
     <div class="chart-box">
-    <h4 class="chart-title">Movimentações por Tipo</h4>
-    <canvas id="chartMovimentosTipo"></canvas>
+        <h4 class="chart-title">Produtos Ativos vs Inativos</h4>
+        <div id="chartProdutosStatus" class="chart-echarts"></div>
+    </div>
 </div>
 
-</div>
 
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="<?= base_url('js/chart.js') ?>"></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-
-    new Chart(document.getElementById('chartPessoas').getContext('2d'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Ativas', 'Inativas'],
-            datasets: [{
-                data: [<?= $pessoasAtivas ?>, <?= $pessoasInativas ?>],
-                backgroundColor: ['#ffb347', '#4a4a4a'],
-                borderWidth: 0,
-            }]
+  // Gráfico Pessoas (Donut)
+ var optionsPessoas = {
+    chart: { type: 'donut', height: 260 },
+    series: [<?= $pessoasAtivas ?>, <?= $pessoasInativas ?>],
+    labels: ['Ativas', 'Inativas'],
+    colors: ['#007bff', '#222'],
+    legend: { show: true, position: 'bottom', fontWeight: 600 },
+    dataLabels: {
+        enabled: true,
+        style: { fontWeight: 700, fontSize: '14px', colors: ['#222'] },
+        dropShadow: { enabled: false },
+        offsetY: 0,
+        offsetX: 0,
+        formatter: function (val, opts) {
+            return val.toFixed(1) + '%';
         },
-        options: {
-            responsive: true,
-            cutout: '70%',
-            plugins: {
-                legend: { position: 'bottom', labels: { color: '#333', font: { size: 14 } } },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-
-
-    new Chart(document.getElementById('chartProdutos').getContext('2d'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Ativos', 'Inativos'],
-            datasets: [{
-                data: [<?= $produtosAtivos ?>, <?= $produtosInativos ?>],
-                backgroundColor: ['#ffb347', '#4a4a4a'],
-                borderWidth: 0,
-            }]
-        },
-        options: {
-            responsive: true,
-            cutout: '70%',
-            plugins: {
-                legend: { position: 'bottom', labels: { color: '#333', font: { size: 14 } } },
-                tooltip: { enabled: true }
-            },
-            
-        }
-    });
-
-
-    new Chart(document.getElementById('chartPessoasTipo').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: <?= json_encode($tiposPessoas) ?>,
-            datasets: [{
-                label: 'Quantidade',
-                data: <?= json_encode($quantidadesTipos) ?>,
-                backgroundColor: '#ffb347',
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f0f0f0' } },
-                x: { grid: { display: true } }
-            },
-            plugins: {
-                legend: { display: true },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-
-
-    new Chart(document.getElementById('chartProdutosCategoria').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: <?= json_encode($categoriasProdutos) ?>,
-            datasets: [{
-                label: 'Quantidade',
-                data: <?= json_encode($quantidadesCategorias) ?>,
-                backgroundColor: '#4caf50',
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f0f0f0' } },
-                x: { grid: { display: true } }
-            },
-            plugins: {
-                legend: { display:true },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-
-
-    new Chart(document.getElementById('chartProdutosUnidade').getContext('2d'), {
-        type: 'bar',
-        data: {
-            labels: <?= json_encode($unidadesProdutos) ?>,
-            datasets: [{
-                label: 'Quantidade',
-                data: <?= json_encode($quantidadesUnidades) ?>,
-                backgroundColor: '#2196f3',
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f0f0f0' } },
-                x: { grid: { display: true } }
-            },
-            plugins: {
-                legend: { display: true },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-
-    new Chart(document.getElementById('chartMovimentosTipo').getContext('2d'), {
-    type: 'pie',
-    data: {
-        labels: <?= json_encode($tiposMovimentos) ?>,
-        datasets: [{
-            data: <?= json_encode($quantidadesMovimentos) ?>,
-            backgroundColor: [
-                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
-            ],
-            borderWidth: 1,
-            borderColor: '#fff',
-        }]
+        background: { enabled: false },
+        minAngleToShowLabel: 10,
+        offset: 20
     },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { position: 'bottom', labels: { font: { size: 14 } } },
-            tooltip: { enabled: true }
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '70%',
+                labels: {
+                    show: true,
+                    total: {
+                        show: true,
+                        label: 'Total',
+                        fontSize: '16px',
+                        fontWeight: 700,
+                        color: '#222',
+                        formatter: function (w) {
+                            return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                        }
+                    }
+                }
+            },
+            dataLabels: {
+                offset: 36
+            }
         }
     }
-});
-</script>
+};
+new ApexCharts(document.querySelector('#chartPessoas'), optionsPessoas).render();
 
+  // Gráfico Produtos por Status (Bar)
+  var optionsProdutosStatus = {
+    chart: { type: 'bar', height: 260 },
+    series: [{
+      name: 'Quantidade',
+      data: [<?= $produtosAtivos ?>, <?= $produtosInativos ?>]
+    }],
+    xaxis: {
+      categories: ['Ativos', 'Inativos'],
+      labels: { style: { colors: '#222', fontWeight: 700 } }
+    },
+    colors: ['#17a2b8', '#6c757d'],
+    plotOptions: {
+      bar: {
+        borderRadius: 6,
+        columnWidth: '50%'
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      offsetY: -18,
+      style: { fontWeight: 700, fontSize: '14px', colors: ['#222'] }
+    },
+    grid: { borderColor: '#bbb' },
+    yaxis: { labels: { style: { colors: '#222', fontWeight: 700 } } }
+  };
+  new ApexCharts(document.querySelector('#chartProdutosStatus'), optionsProdutosStatus).render();
+
+  // Gráfico Pessoas por Tipo (Bar)
+  var optionsPessoasTipo = {
+    chart: { type: 'bar', height: 260 },
+    series: [{
+      name: 'Quantidade',
+      data: <?= json_encode($quantidadesTipos) ?>
+    }],
+    xaxis: {
+      categories: <?= json_encode($tiposPessoas) ?>,
+      labels: { style: { colors: '#222', fontWeight: 700 } }
+    },
+    colors: ['#007bff', '#222'],
+    plotOptions: { bar: { borderRadius: 6, columnWidth: '50%' } },
+    dataLabels: { enabled: true, offsetY: -18, style: { fontWeight: 700, fontSize: '14px', colors: ['#222'] } },
+    grid: { borderColor: '#bbb' },
+    yaxis: { labels: { style: { colors: '#222', fontWeight: 700 } } }
+  };
+  new ApexCharts(document.querySelector('#chartPessoasTipo'), optionsPessoasTipo).render();
+
+  // Gráfico Produtos por Categoria (Bar)
+  var optionsProdutosCategoria = {
+    chart: { type: 'bar', height: 260 },
+    series: [{
+      name: 'Quantidade',
+      data: <?= json_encode($quantidadesCategorias) ?>
+    }],
+    xaxis: {
+      categories: <?= json_encode($categoriasProdutos) ?>,
+      labels: { style: { colors: '#222', fontWeight: 700 } }
+    },
+    colors: ['#28a745'],
+    plotOptions: { bar: { borderRadius: 6, columnWidth: '50%' } },
+    dataLabels: {
+      enabled: true,
+      offsetY: -18,
+      style: { fontWeight: 700, fontSize: '14px', colors: ['#222'] }
+    },
+    grid: { borderColor: '#bbb' },
+    yaxis: { labels: { style: { colors: '#222', fontWeight: 700 } } }
+  };
+  new ApexCharts(document.querySelector('#chartProdutosCategoria'), optionsProdutosCategoria).render();
+
+  // Gráfico Produtos por Unidade de Medida (Pie)
+  var optionsProdutosUnidade = {
+    chart: { type: 'pie', height: 260 },
+    series: <?= json_encode($quantidadesUnidades) ?>,
+    labels: <?= json_encode($unidadesProdutos) ?>,
+    colors: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'],
+    legend: { show: true, position: 'bottom', fontWeight: 600 },
+    dataLabels: {
+      enabled: true,
+      style: { fontWeight: 700, fontSize: '14px', colors: ['#222'] },
+      dropShadow: { enabled: false },
+      formatter: function (val) {
+        return val.toFixed(1) + '%';
+      }
+    }
+  };
+  new ApexCharts(document.querySelector('#chartProdutosUnidade'), optionsProdutosUnidade).render();
+
+</script>
 <?= $this->endSection() ?>

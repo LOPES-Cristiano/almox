@@ -38,7 +38,7 @@ INSERT INTO pessoa (pes_nome, pes_datacadastro, pes_observacao, pes_ativo, pest_
 VALUES ('admin', '0001-01-01', '', 1, 1);
 
 INSERT INTO usuario (usu_email, usu_senha, usu_cadastro, usu_ativo, usu_observacao, pes_id)
-VALUES ('admin@admin.com', '123', '0001-01-01', 1, '', 1);
+VALUES ('admin@admin.com', '$2y$10$8T9yQCHUPbSjAYTKD4kEJuFc2v6UOoa5Ew9vl/9RvM2VCX8v7OCCi', '0001-01-01', 1, '', 1);
 
 CREATE TABLE PRODUTOCATEGORIA (
     procat_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -95,5 +95,6 @@ CREATE TABLE MOVIMENTO (
 ALTER TABLE movimento ADD COLUMN mov_fornecedor VARCHAR(255) NULL;
 ALTER TABLE movimento ADD COLUMN mov_cliente VARCHAR(255) NULL;
 
-
-
+ALTER TABLE movimento
+ADD COLUMN mov_quantidade DECIMAL(10,2) NOT NULL DEFAULT 0
+AFTER movt_id;

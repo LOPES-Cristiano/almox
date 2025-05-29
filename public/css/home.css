@@ -53,9 +53,11 @@
 
 body {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+
     background-color: var(--cinza-suave);
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -66,6 +68,8 @@ body {
     flex-direction: column;
     box-shadow: 0 0 5px rgb(0, 0, 0, 0.9);
     z-index: 1000;
+    height: 100vh;
+    position: fixed;
 }
 
 .sidebar h2 {
@@ -167,6 +171,9 @@ body {
 }
 
 .content {
+    margin-left: 20rem;
+    height: 100vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

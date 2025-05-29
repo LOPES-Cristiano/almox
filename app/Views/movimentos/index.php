@@ -39,12 +39,7 @@
                 <td><?= $m['mov_descricao'] ?></td>
                 <td><?= $m['pro_descricao'] ?></td>
                 <td>
-                <?php
-                    $nomes = [];
-                    if (!empty($m['fornecedor_nome'])) $nomes[] = $m['fornecedor_nome'];
-                    if (!empty($m['cliente_nome'])) $nomes[] = $m['cliente_nome'];
-                    echo implode(' / ', $nomes);
-                ?>
+                <?= $m['fornecedor_nome'] ?? $m['cliente_nome'] ?? '' ?>
                 </td>
                 <td><?= $m['mov_observacao'] ?></td>
             </tr>

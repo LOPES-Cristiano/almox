@@ -22,96 +22,103 @@ class HomeController extends BaseController
     }
 
     public function index()
-{
-    if (!session()->has('usuario_id')) {
-        return redirect()->to('/');
+    {
+        if (!session()->has('usuario_id')) {
+            return redirect()->to('/');
+        }
+
+        $usuarioModel = new \App\Models\UsuarioModel();
+        $pessoaModel = new \App\Models\PessoaModel();
+        $pessoaTipoModel = new \App\Models\PessoaTipoModel();
+        $produtoModel = new \App\Models\ProdutoModel();
+        $armazemModel = new \App\Models\ArmazemModel();
+        $movimentoModel = new \App\Models\MovimentoModel();
+        $movimentoTipoModel = new \App\Models\MovimentoTipoModel();
+
+        $usuario = $usuarioModel->find(session('usuario_id'));
+        $pessoa = $pessoaModel->find($usuario['pes_id']);
+        $tipoDescricao = '';
+        if ($pessoa && isset($pessoa['pest_id'])) {
+            $tipo = $pessoaTipoModel->find($pessoa['pest_id']);
+            $tipoDescricao = $tipo['pest_descricao'] ?? '';
+        }
+    
+        $produtoModel = new \App\Models\ProdutoModel();
+        $produtoCategoriaModel = new \App\Models\ProdutoCategoriaModel();
+        $produtoUnidadeModel = new \App\Models\ProdutoUnidadeMedidaModel();
+    
+        
+        $tipos = $pessoaTipoModel->findAll();
+        $tiposDescricao = [];
+        $quantidadesPessoasTipo = [];
+        foreach ($tipos as $tipo) {
+            $produtoModel->resetQuery();
+            $quantidade = $pessoaModel->where('pest_id', $tipo['pest_id'])->countAllResults();
+            $tiposDescricao[] = $tipo['pest_descricao'];
+            $quantidadesPessoasTipo[] = $quantidade;
+        }
+    
+        
+        $categorias = $produtoCategoriaModel->findAll();
+        $categoriasDescricao = [];
+        $quantidadesProdutosCategoria = [];
+        foreach ($categorias as $categoria) {
+            $produtoModel->resetQuery();
+            $quantidade = $produtoModel->where('procat_id', $categoria['procat_id'])->countAllResults();
+            $categoriasDescricao[] = $categoria['procat_descricao'];
+            $quantidadesProdutosCategoria[] = $quantidade;
+        }
+    
+       
+        $unidades = $produtoUnidadeModel->findAll();
+        $unidadesDescricao = [];
+        $quantidadesProdutosUnidade = [];
+        foreach ($unidades as $unidade) {
+            $produtoModel->resetQuery();
+            $quantidade = $produtoModel->where('proum_id', $unidade['proum_id'])->countAllResults();
+            $unidadesDescricao[] = $unidade['proum_descricao'];
+            $quantidadesProdutosUnidade[] = $quantidade;
+        }
+    
+        
+        $ultimasMovimentacoes = $movimentoModel
+            ->select('movimento.mov_data, movimentotipo.mov_descricao as tipo, produto.pro_descricao as produto, movimento.mov_quantidade as quantidade')
+            ->join('movimentotipo', 'movimentotipo.movt_id = movimento.movt_id')
+            ->join('produto', 'produto.pro_id = movimento.pro_id')
+            ->orderBy('movimento.mov_data', 'DESC')
+            ->limit(4)
+            ->findAll();
+
+       
+        $maioresEstoques = $armazemModel
+            ->select('produto.pro_descricao as produto, armazem.arm_quantidade as estoque')
+            ->join('produto', 'produto.pro_id = armazem.pro_id')
+            ->orderBy('armazem.arm_quantidade', 'DESC')
+            ->limit(6)
+            ->findAll();
+
+        $dadosDashboard = [
+            'pessoasAtivas' => $pessoaModel->where('pes_ativo', 1)->countAllResults(),
+            'pessoasInativas' => $pessoaModel->where('pes_ativo', 0)->countAllResults(),
+            'produtosAtivos' => $produtoModel->where('pro_ativo', 1)->countAllResults(),
+            'produtosInativos' => $produtoModel->where('pro_ativo', 0)->countAllResults(),
+    
+            'tiposPessoas' => $tiposDescricao,
+            'quantidadesTipos' => $quantidadesPessoasTipo,
+    
+            'categoriasProdutos' => $categoriasDescricao,
+            'quantidadesCategorias' => $quantidadesProdutosCategoria,
+    
+            'unidadesProdutos' => $unidadesDescricao,
+            'quantidadesUnidades' => $quantidadesProdutosUnidade,
+            
+
+            'ultimasMovimentacoes' => $ultimasMovimentacoes,
+            'maioresEstoques' => $maioresEstoques,
+        ];
+
+        return view('home', $dadosDashboard);
     }
-
-    $usuarioModel = new \App\Models\UsuarioModel();
-    $pessoaModel = new \App\Models\PessoaModel();
-    $pessoaTipoModel = new \App\Models\PessoaTipoModel();
-
-    $produtoModel = new \App\Models\ProdutoModel();
-    $produtoCategoriaModel = new \App\Models\ProdutoCategoriaModel();
-    $produtoUnidadeModel = new \App\Models\ProdutoUnidadeMedidaModel();
-
-    $movimentoModel = new \App\Models\MovimentoModel();
-    $movimentoTipoModel = new \App\Models\MovimentoTipoModel();
-
-    // Dados para pessoa/tipo
-    $tipos = $pessoaTipoModel->findAll();
-    $tiposDescricao = [];
-    $quantidadesPessoasTipo = [];
-    foreach ($tipos as $tipo) {
-        $pessoaModel->resetQuery();
-        $quantidade = $pessoaModel->where('pest_id', $tipo['pest_id'])->countAllResults();
-        $tiposDescricao[] = $tipo['pest_descricao'];
-        $quantidadesPessoasTipo[] = $quantidade;
-    }
-
-    // Dados para produto/categoria
-    $categorias = $produtoCategoriaModel->findAll();
-    $categoriasDescricao = [];
-    $quantidadesProdutosCategoria = [];
-    foreach ($categorias as $categoria) {
-        $produtoModel->resetQuery();
-        $quantidade = $produtoModel->where('procat_id', $categoria['procat_id'])->countAllResults();
-        $categoriasDescricao[] = $categoria['procat_descricao'];
-        $quantidadesProdutosCategoria[] = $quantidade;
-    }
-
-    // Dados para produto/unidade de medida
-    $unidades = $produtoUnidadeModel->findAll();
-    $unidadesDescricao = [];
-    $quantidadesProdutosUnidade = [];
-    foreach ($unidades as $unidade) {
-        $produtoModel->resetQuery();
-        $quantidade = $produtoModel->where('proum_id', $unidade['proum_id'])->countAllResults();
-        $unidadesDescricao[] = $unidade['proum_descricao'];
-        $quantidadesProdutosUnidade[] = $quantidade;
-    }
-
-    // Contagem de pessoas ativas e inativas
-    $pessoasAtivas = $pessoaModel->where('pes_ativo', 1)->countAllResults();
-    $pessoasInativas = $pessoaModel->where('pes_ativo', 0)->countAllResults();
-
-    // Contagem de produtos ativos e inativos
-    $produtosAtivos = $produtoModel->where('pro_ativo', 1)->countAllResults();
-    $produtosInativos = $produtoModel->where('pro_ativo', 0)->countAllResults();
-
-    // Dados para gráfico de pizza das movimentações por tipo
-    $movimentoTipos = $movimentoTipoModel->findAll();
-    $movimentoTiposDescricao = [];
-    $quantidadesMovimentacoes = [];
-
-    foreach ($movimentoTipos as $movTipo) {
-        $movimentoModel->resetQuery();
-        $quantidade = $movimentoModel->where('movt_id', $movTipo['movt_id'])->countAllResults();
-        $movimentoTiposDescricao[] = $movTipo['mov_descricao'];
-        $quantidadesMovimentacoes[] = $quantidade;
-    }
-
-    $dadosDashboard = [
-        'pessoasAtivas' => $pessoasAtivas,
-        'pessoasInativas' => $pessoasInativas,
-        'produtosAtivos' => $produtosAtivos,
-        'produtosInativos' => $produtosInativos,
-
-        'tiposPessoas' => $tiposDescricao,
-        'quantidadesTipos' => $quantidadesPessoasTipo,
-
-        'categoriasProdutos' => $categoriasDescricao,
-        'quantidadesCategorias' => $quantidadesProdutosCategoria,
-
-        'unidadesProdutos' => $unidadesDescricao,
-        'quantidadesUnidades' => $quantidadesProdutosUnidade,
-
-        'tiposMovimentos' => $movimentoTiposDescricao,
-        'quantidadesMovimentos' => $quantidadesMovimentacoes,
-    ];
-
-    return view('home', $dadosDashboard);
-}
 
     public function usuarios()
     {
@@ -433,15 +440,16 @@ public function salvarMovimento()
         'usu_id' => $usuario_id,
         'mov_observacao' => $this->request->getPost('mov_observacao'),
         'mov_fornecedor' => null,
-        'mov_cliente' => null
+        'mov_cliente' => null,
+        'mov_quantidade' => (float) $this->request->getPost('quantidade')
     ];
 
-    if ($movt_id == 1) { // Entrada (compra)
+    if ($movt_id == 1) { // Entrada
         $data['mov_fornecedor'] = $mov_fornecedor;
-        $data['mov_cliente'] = $pessoa_id; // cliente é o usuário logado
-    } elseif ($movt_id == 2) { // Saída (venda)
+        $data['mov_cliente'] = $pessoa_id;
+    } elseif ($movt_id == 2) { // Saída
         $data['mov_cliente'] = $mov_cliente;
-        $data['mov_fornecedor'] = $pessoa_id; // fornecedor é o usuário logado
+        $data['mov_fornecedor'] = $pessoa_id;
     }
 
     log_message('debug', 'Dados para inserir movimento: ' . json_encode($data));

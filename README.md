@@ -1,10 +1,13 @@
 # 🗃️ AlmoX - Sistema de controle de estoque
+
 ---
-**AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL**.  
+
+**AlmoX** é um sistema de controle de estoque para almoxarifados, desenvolvido com **PHP (CodeIgniter 4)**, **MySQL** e **mPDF** para geração de relatórios em PDF.
 O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas de estoque, com foco em simplicidade, desempenho e usabilidade.
+
 ---
-![Banner do Projeto](./almoxBanner.png)
----
+
+## ![Banner do Projeto](./almoxBanner.png)
 
 ## 📸 Prévia da Interface
 
@@ -14,9 +17,12 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ## 🔧 Tecnologias Utilizadas
 
--   ✅ **PHP 8+** com CodeIgniter 4
+-   ✅ **PHP 8.1+** com CodeIgniter 4
 -   ✅ **MySQL 8**
+-   ✅ **Composer** para gerenciamento de dependências
+-   ✅ **mPDF** para geração de relatórios em PDF
 -   ✅ **JavaScript nativo** para interações com modais e asides
+-   ✅ **CSS moderno** e responsivo
 
 ---
 
@@ -25,32 +31,39 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 ```
 /app
 ├── Controllers/
-│   └── Pessoa.php
 ├── Models/
-│   └── PessoaModel.php
 ├── Views/
-│   ├── layout/
-│   └── pessoas/
-│       ├── index.php
-│       └── form.php
+│   ├── layout.php
+│   ├── home.php
+│   ├── produtos.php
+│   ├── usuarios.php
+│   ├── movimentos/
+│   └── partials/
+├── scripts/
+│   └── script001.sql
 /public
 │   ├── css/
-│   └── js/
+│   ├── img/
+│   ├── js/
+│   └── svg/
 .env
 composer.json
+README.md
 ```
 
 ---
 
 ## ✅ Funcionalidades
 
--   👤 Cadastro e edição de pessoas
--   📦 Cadastro de produtos
--   📈 Controle de entradas e saídas
+-   👤 Cadastro, edição e ativação/desativação de pessoas
+-   🏷️ Cadastro de tipos de pessoa (Administrador, Cliente, Fornecedor, Vendedor, etc) via modal
+-   📦 Cadastro e edição de produtos, categorias e unidades de medida
+-   🔄 Controle de entradas e saídas de estoque (movimentações)
+-   📊 Dashboard com gráficos e tabelas
+-   🧾 Geração de relatórios em PDF (consultas dos dashboards, sem gráficos)
+-   🌙 Formulários em modo **Aside** com overlay moderno, acessíveis de qualquer tela
 -   🔍 Filtros e pesquisa
--   📊 Visualização de saldo de estoque
--   🧾 Geração de relatórios _(em breve)_
--   🌙 Formulários em modo **Aside** com overlay moderno
+-   💾 Dados iniciais automáticos para acesso rápido
 
 ---
 
@@ -63,7 +76,7 @@ git clone https://github.com/lopes-cristiano/almox.git
 cd almox
 ```
 
-### 2. Instale as dependências:
+### 2. Instale as dependências do PHP (inclui mPDF):
 
 ```bash
 composer install
@@ -79,23 +92,69 @@ database.default.password =
 database.default.DBDriver = MySQLi
 ```
 
-### 4. Rode o servidor:
+### 4. Crie o banco e dados iniciais:
+
+-   Importe o script SQL:
+
+```bash
+mysql -u root -p < app/scripts/script001.sql
+```
+
+-   Isso criará as tabelas e os dados iniciais, incluindo o usuário admin.
+
+### 5. Rode o servidor:
 
 ```bash
 php spark serve
 ```
 
-### 5. Acesse no navegador:
+### 6. Acesse no navegador:
 
 [http://localhost:8080](http://localhost:8080)
 
 ---
 
+## 👤 Usuário padrão para login
+
+-   **Usuário:** admin@admin.com
+-   **Senha:** 12345678 (hash já inserido no banco, altere se desejar)
+
+---
+
+## 📄 Geração de Relatórios em PDF
+
+-   Acesse o formulário de relatórios pelo menu lateral ("Relatórios").
+-   Escolha o tipo de relatório e o período (opcional).
+-   O PDF é gerado a partir das mesmas consultas dos dashboards, apenas tabelas (sem gráficos).
+-   O download é feito automaticamente.
+
+---
+
+## 🧩 Novidades e Recursos Avançados
+
+-   Modal global para relatórios, acessível de qualquer tela
+-   Cadastro de tipos de pessoa via aside/modal
+-   Todos os formulários seguem padrão visual e de acessibilidade
+-   Overlay único para todos os asides
+-   Responsividade aprimorada
+-   Código organizado e comentado
+
+---
+
 ## 📌 Padrões e Organização
 
--   Estrutura **MVC**
+-   Estrutura **MVC** (Model-View-Controller)
 -   Organização modular por componentes reutilizáveis
 -   Separação clara entre controle, visualização e regra de negócio
+-   Uso de partials para formulários e modais
+
+---
+
+## 🗃️ Dados padrão inseridos no banco
+
+-   Tipos de pessoa: Administrador, Cliente, Fornecedor, Vendedor
+-   Usuário admin: admin@admin.com (senha: admin123)
+-   Estrutura pronta para produtos, categorias, unidades, movimentações
 
 ---
 
@@ -103,8 +162,9 @@ php spark serve
 
 -   🔐 Autenticação com permissões (ACL)
 -   📱 Responsividade total para mobile
--   📄 Geração de relatórios em PDF
+-   📄 Relatórios customizáveis
 -   📊 Dashboard com gráficos interativos
+-   📦 Importação/exportação de dados
 
 ---
 

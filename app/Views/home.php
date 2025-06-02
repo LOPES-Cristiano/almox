@@ -104,7 +104,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-  // Gráfico Pessoas (Donut)
+
  var optionsPessoas = {
     chart: { type: 'donut', height: 260 },
     series: [<?= $pessoasAtivas ?>, <?= $pessoasInativas ?>],
@@ -150,7 +150,6 @@
 };
 new ApexCharts(document.querySelector('#chartPessoas'), optionsPessoas).render();
 
-  // Gráfico Produtos por Status (Bar)
   var optionsProdutosStatus = {
     chart: { type: 'bar', height: 260 },
     series: [{
@@ -178,7 +177,6 @@ new ApexCharts(document.querySelector('#chartPessoas'), optionsPessoas).render()
   };
   new ApexCharts(document.querySelector('#chartProdutosStatus'), optionsProdutosStatus).render();
 
-  // Gráfico Pessoas por Tipo (Bar)
   var optionsPessoasTipo = {
     chart: { type: 'bar', height: 260 },
     series: [{
@@ -197,7 +195,6 @@ new ApexCharts(document.querySelector('#chartPessoas'), optionsPessoas).render()
   };
   new ApexCharts(document.querySelector('#chartPessoasTipo'), optionsPessoasTipo).render();
 
-  // Gráfico Produtos por Categoria (Bar)
   var optionsProdutosCategoria = {
     chart: { type: 'bar', height: 260 },
     series: [{
@@ -220,7 +217,6 @@ new ApexCharts(document.querySelector('#chartPessoas'), optionsPessoas).render()
   };
   new ApexCharts(document.querySelector('#chartProdutosCategoria'), optionsProdutosCategoria).render();
 
-  // Gráfico Produtos por Unidade de Medida (Pie)
   var optionsProdutosUnidade = {
     chart: { type: 'pie', height: 260 },
     series: <?= json_encode($quantidadesUnidades) ?>,

@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             relatorioAside.classList.add('open');
             relatorioAside.style.display = 'block';
             overlay.style.display = 'flex';
-            // Foco no primeiro campo do formulário
+            
             const firstInput = relatorioAside.querySelector('form input, form select');
             if (firstInput) firstInput.focus();
         });

@@ -11,10 +11,6 @@
     <button id="btnOpenInsertMovimento" class="tableButton" >
         <img src="<?= base_url('svg/square-pen.svg') ?>" alt="ícone de caneta">Inserir Movimento
     </button>
-
-    <button id="btnOpenInsertTipoMovimento" class="tableButton" >
-        <img src="<?= base_url('svg/square-pen.svg') ?>" alt="ícone de caneta">Inserir Tipo de Movimento
-    </button>
 </div>
 
 <div class="tab-buttons">
@@ -102,37 +98,17 @@
     </div>
 </aside>
 
-<aside id="modalTipoMovimento" class="modal-aside" aria-hidden="true" role="dialog" aria-labelledby="modalTipoTitle">
-    <button class="close-btn" id="btnCloseModalTipo" aria-label="Fechar modal">&times;</button>
-    <h2 id="modalTitle">Inserir Tipo de Movimento</h2>
-
-    <form id="formTipoMovimento" method="post" action="<?= base_url('home/salvarTipoMovimento') ?>" class="form">
-        <?= csrf_field() ?>
-
-        <label class="required" for="movDescricao">Descrição:</label>
-        <input type="text" id="movDescricao" name="mov_descricao" class="inputForm" required>
-
-        <button type="submit" class="button-submit">Salvar</button>
-    </form>
-</aside>
-
 <script>
     const btnOpenInsertMovimento = document.getElementById('btnOpenInsertMovimento');
-    const btnOpenInsertTipoMovimento = document.getElementById('btnOpenInsertTipoMovimento');
     const modalAside = document.getElementById('modalAside');
-    const modalTipoMovimento = document.getElementById('modalTipoMovimento');
     const overlay = document.getElementById('overlay');
     const btnCloseModal = document.getElementById('btnCloseModal');
-    const btnCloseModalTipo = document.getElementById('btnCloseModalTipo');
     const selectTipoMovimento = document.getElementById('movimentoTipo');
-
-    // CORRIGIDO: IDs usados no HTML para os campos de fornecedor e cliente
     const campoFornecedor = document.getElementById('divFornecedor');
     const campoCliente = document.getElementById('divCliente');
 
     function closeAllModals() {
         modalAside.classList.remove('open');
-        modalTipoMovimento.classList.remove('open'); 
         overlay.style.display = 'none';
     }
 
@@ -147,17 +123,6 @@
         overlay.style.display = 'none';
     });
 
-    btnOpenInsertTipoMovimento.addEventListener('click', () => {
-        closeAllModals(); 
-        modalTipoMovimento.classList.add('open'); 
-        overlay.style.display = 'block';
-    });
-
-    btnCloseModalTipo.addEventListener('click', () => {
-        modalTipoMovimento.classList.remove('open');
-        overlay.style.display = 'none';
-    });
-
     overlay.addEventListener('click', () => {
         closeAllModals();
     });
@@ -165,10 +130,10 @@
     function toggleCamposRelacionados() {
         const tipoSelecionado = parseInt(selectTipoMovimento.value);
         
-        if (tipoSelecionado === 1) { // Entrada
+        if (tipoSelecionado === 1) {
             campoFornecedor.style.display = 'block';
             campoCliente.style.display = 'none';
-        } else if (tipoSelecionado === 2) { // Saída
+        } else if (tipoSelecionado === 2) {
             campoFornecedor.style.display = 'none';
             campoCliente.style.display = 'block';
         } else {
@@ -180,6 +145,5 @@
     selectTipoMovimento.addEventListener('change', toggleCamposRelacionados);
     window.addEventListener('DOMContentLoaded', toggleCamposRelacionados);
 </script>
-
 
 <?= $this->endSection() ?>

@@ -382,7 +382,6 @@ public function movimentos($tipo = null)
 
     $tipos = $movimentoTipoModel->findAll();
 
-    // Agora fazendo joins para pegar nomes do fornecedor e cliente
     $movimentos = $movimentoModel
         ->select('
             movimento.*, 
@@ -426,7 +425,6 @@ public function salvarMovimento()
     $mov_fornecedor = $this->request->getPost('mov_fornecedor');
     $mov_cliente = $this->request->getPost('mov_cliente');
 
-    // Validação mínima:
     if ($movt_id == 1 && empty($mov_fornecedor)) {
         return redirect()->back()->with('error', 'Fornecedor é obrigatório para entrada.');
     }
@@ -435,7 +433,6 @@ public function salvarMovimento()
         return redirect()->back()->with('error', 'Cliente é obrigatório para saída.');
     }
 
-    // Define o timezone antes de montar o array de dados
     date_default_timezone_set('America/Sao_Paulo');
     $data = [
         'mov_data' => date('Y-m-d'),
@@ -448,10 +445,10 @@ public function salvarMovimento()
         'mov_quantidade' => (float) $this->request->getPost('quantidade')
     ];
 
-    if ($movt_id == 1) { // Entrada
+    if ($movt_id == 1) { 
         $data['mov_fornecedor'] = $mov_fornecedor;
         $data['mov_cliente'] = $pessoa_id;
-    } elseif ($movt_id == 2) { // Saída
+    } elseif ($movt_id == 2) { 
         $data['mov_cliente'] = $mov_cliente;
         $data['mov_fornecedor'] = $pessoa_id;
     }
@@ -460,7 +457,6 @@ public function salvarMovimento()
 
     $movimentoModel->insert($data);
 
-    // Atualiza estoque
     $quantidade = (int) $this->request->getPost('quantidade');
     $produtoId = $this->request->getPost('pro_id');
     $armazem = $armazemModel->where('pro_id', $produtoId)->first();

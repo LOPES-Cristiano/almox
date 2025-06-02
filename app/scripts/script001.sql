@@ -80,6 +80,10 @@ CREATE TABLE MOVIMENTOTIPO (
     mov_observacao VARCHAR(250)
 );
 
+INSERT INTO MOVIMENTOTIPO (mov_descricao, mov_observacao) VALUES
+('Entrada', 'Movimentação de entrada de produtos'),
+('Saída', 'Movimentação de saída de produtos');
+
 CREATE TABLE MOVIMENTO (
     mov_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     mov_data DATE,

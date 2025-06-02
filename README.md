@@ -7,8 +7,6 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ---
 
-## ![Banner do Projeto](./almoxBanner.png)
-
 ## 📸 Prévia da Interface
 
 ![Interface](./1.png)

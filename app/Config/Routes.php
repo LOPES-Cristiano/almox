@@ -15,6 +15,7 @@ $routes->get('home/usuarios', 'HomeController::usuarios');
 $routes->post('home/usuarios/salvar', 'HomeController::salvarUsuario');
 $routes->get('home/usuarios/editar/(:num)', 'HomeController::editarUsuario/$1');
 $routes->post('home/usuarios/atualizar/(:num)', 'HomeController::atualizarUsuario/$1');
+$routes->post('home/usuarios/inserirTipoPessoa', 'HomeController::inserirTipoPessoa');
 
 $routes->get('home/produtos', 'HomeController::produtos');
 $routes->post('home/produtos/inserirProduto', 'HomeController::inserirProduto');
@@ -27,7 +28,6 @@ $routes->get('home/movimentos/(:num)', 'HomeController::movimentos/$1');
 $routes->post('home/salvarMovimento', 'HomeController::salvarMovimento');
 $routes->post('home/salvarTipoMovimento', 'HomeController::salvarTipoMovimento');
 
-$routes->get('relatorios', 'RelatoriosController::index');
-$routes->get('relatorios/(:segment)', 'RelatoriosController::filtros/$1');
-$routes->post('relatorios/gerar/(:segment)', 'RelatoriosController::gerar/$1');
+$routes->get('home/relatorios', 'HomeController::relatorios');
+$routes->get('home/gerarRelatorio', 'HomeController::gerarRelatorio');
 

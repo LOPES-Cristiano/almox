@@ -46,7 +46,10 @@
 #formCategoria,
 #formUnidade,
 #formUsuario,
-#formPessoa {
+#formPessoa,
+#formTipoPessoa
+#formMovimento,
+#formRelatorio {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -58,7 +61,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-#modalTitle {
+#modalTitle, #relatorioAsideTitle {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--cinza-medio);
@@ -171,19 +174,21 @@ aside.modal-aside {
     position: fixed;
     top: 0;
     right: -400px;
-    max-width: 100%;
+    max-width: 100vw;
     width: min(400px, 100vw);
     height: 100vh;
-    background: var(--preto-claro);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease;
+    background: var(--preto-claro, #222);
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    transition: right 0.3s ease, display 0.2s;
     z-index: 1001;
-    padding: 20px;
+    padding: 20px 24px 24px 24px;
     overflow-y: auto;
+    display: none;
 }
 
 aside.modal-aside.open {
     right: 0;
+    display: block;
 }
 
 aside.modal-aside .close-btn {
@@ -195,6 +200,32 @@ aside.modal-aside .close-btn {
     position: absolute;
     top: 5px;
     left: 350px;
-    color: var(--vermelho-tomate);
+    color: var(--vermelho-tomate, #ff6347);
     padding: 5px;
+    z-index: 1002;
+}
+
+#relatorioAsideContent, #modalContent {
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+    aside.modal-aside {
+        width: 100vw;
+        left: 0;
+        right: -100vw;
+        padding: 10px 6vw 24px 6vw;
+    }
+    aside.modal-aside.open {
+        right: 0;
+    }
+    aside.modal-aside .close-btn {
+        left: unset;
+        right: 10px;
+    }
+    .overlay {
+        left: 0;
+        width: 100vw;
+    }
 }

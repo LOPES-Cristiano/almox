@@ -2,6 +2,7 @@
 
 <?= $this->section('styles') ?>
 <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+<link rel="stylesheet" href="<?= base_url('css/forms.css')?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -44,7 +45,7 @@
             <tbody>
                 <?php foreach ($ultimasMovimentacoes as $mov): ?>
                     <tr>
-                        <td><?= date('d/m/Y H:i', strtotime($mov['mov_data'])) ?></td>
+                        <td><?= date('d/m/Y', strtotime($mov['mov_data'])) ?></td>
                         <td><?= esc($mov['tipo']) ?></td>
                         <td><?= esc($mov['produto']) ?></td>
                         <td><?= esc($mov['quantidade']) ?></td>

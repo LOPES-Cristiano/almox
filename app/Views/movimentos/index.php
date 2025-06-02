@@ -35,7 +35,7 @@
     <tbody>
         <?php foreach ($movimentos as $m): ?>
             <tr>
-                <td><?= date('d/m/Y H:i', strtotime($m['mov_data'])) ?></td>
+                <td><?= date('d/m/Y', strtotime($m['mov_data'])) ?></td>
                 <td><?= $m['mov_descricao'] ?></td>
                 <td><?= $m['pro_descricao'] ?></td>
                 <td>
@@ -104,7 +104,7 @@
 
 <aside id="modalTipoMovimento" class="modal-aside" aria-hidden="true" role="dialog" aria-labelledby="modalTipoTitle">
     <button class="close-btn" id="btnCloseModalTipo" aria-label="Fechar modal">&times;</button>
-    <h2 id="modalTipoTitle">Inserir Tipo de Movimento</h2>
+    <h2 id="modalTitle">Inserir Tipo de Movimento</h2>
 
     <form id="formTipoMovimento" method="post" action="<?= base_url('home/salvarTipoMovimento') ?>" class="form">
         <?= csrf_field() ?>

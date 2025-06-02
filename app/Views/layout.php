@@ -42,8 +42,8 @@
 
      <ul>
         <li>
-            <a href="<?= base_url('home/relatorios') ?>" class="menu-item">
-                <img src="<?= base_url('svg/file-spreadsheet.svg') ?>" alt="ícone de casa">
+            <a href="#" id="btnOpenRelatorioAside" class="menu-item">
+                <img src="<?= base_url('svg/file-spreadsheet.svg') ?>" alt="ícone de relatório">
                 <span>Relatórios</span>
             </a>
         </li>
@@ -59,7 +59,50 @@
     <?= $this->renderSection('content') ?>
 </div>
 
+<div id="overlay" class="overlay"></div>
+
+<aside id="relatorioAside" class="modal-aside" aria-hidden="true" role="dialog" aria-labelledby="relatorioAsideTitle">
+    <button class="close-btn" id="btnCloseRelatorioAside" aria-label="Fechar modal">&times;</button>
+    <h2 id="relatorioAsideTitle">Relatórios</h2>
+    <div id="relatorioAsideContent">
+        <?= view('partials/relatorio_form') ?>
+    </div>
+</aside>
+
 <?= view('partials/modal_spinner') ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btnOpenRelatorioAside = document.getElementById('btnOpenRelatorioAside');
+    const relatorioAside = document.getElementById('relatorioAside');
+    const btnCloseRelatorioAside = document.getElementById('btnCloseRelatorioAside');
+    const overlay = document.getElementById('overlay');
+
+    if (btnOpenRelatorioAside && relatorioAside && btnCloseRelatorioAside && overlay) {
+        btnOpenRelatorioAside.addEventListener('click', function(e) {
+            e.preventDefault();
+            relatorioAside.classList.add('open');
+            relatorioAside.style.display = 'block';
+            overlay.style.display = 'flex';
+            // Foco no primeiro campo do formulário
+            const firstInput = relatorioAside.querySelector('form input, form select');
+            if (firstInput) firstInput.focus();
+        });
+        btnCloseRelatorioAside.addEventListener('click', function() {
+            relatorioAside.classList.remove('open');
+            relatorioAside.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+        overlay.addEventListener('click', function() {
+            if (relatorioAside.classList.contains('open')) {
+                relatorioAside.classList.remove('open');
+                relatorioAside.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
 
 </body>
 </html>

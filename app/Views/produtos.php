@@ -1,4 +1,3 @@
-<!-- INÍCIO DA VIEW -->
 
 <?= $this->extend('layout') ?>
 

@@ -1,4 +1,3 @@
-
 <?= $this->extend('layout') ?>
 
 <?= $this->section('styles') ?>
@@ -34,6 +33,7 @@
             <th>Data Cadastro</th>
             <th>Categoria</th>
             <th>Unidade de Medida</th>
+            <th>Saldo</th>
             <th>Ativo</th>
             <th>Observação</th>
             <th>Ações</th>
@@ -56,6 +56,7 @@
                     <td><?= esc($produto['pro_datacadastro']) ?></td>
                     <td><?= esc($produto['procat_descricao']) ?></td>
                     <td><?= esc($produto['proum_descricao']) ?></td>
+                    <td><?= esc($produto['saldo_estoque']) ?></td>
                     <td>
                     <?php if ($produto['pro_ativo']): ?>
                         <img src="<?= base_url('svg/check.svg') ?>" alt="Ativo" width="20" height="20">
@@ -70,7 +71,7 @@
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
-            <tr><td colspan="7">Nenhum produto cadastrado.</td></tr>
+            <tr><td colspan="9">Nenhum produto cadastrado.</td></tr>
         <?php endif; ?>
     </tbody>
 </table>

@@ -19,8 +19,8 @@
             <th>Email</th>
             <th>Data Cadastro</th>
             <th>Tipo</th>
-            <th>Ativo</th>
             <th>Observação</th>
+            <th>Ativo</th>
             <th>Ações</th>
         </tr>
     </thead>

@@ -245,9 +245,10 @@ public function atualizarUsuario($pes_id)
     public function produtos()
     {
         $builder = $this->produtoModel->builder();
-        $builder->select('produto.*, produtocategoria.procat_descricao, produtounidademedida.proum_descricao');
+        $builder->select('produto.*, produtocategoria.procat_descricao, produtounidademedida.proum_descricao, IFNULL(armazem.arm_quantidade,0) as saldo_estoque');
         $builder->join('produtocategoria', 'produto.procat_id = produtocategoria.procat_id');
         $builder->join('produtounidademedida', 'produto.proum_id = produtounidademedida.proum_id');
+        $builder->join('armazem', 'armazem.pro_id = produto.pro_id', 'left');
         $produtos = $builder->get()->getResultArray();
 
         $categorias = $this->categoriaModel->findAll();

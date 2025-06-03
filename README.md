@@ -13,6 +13,15 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ---
 
+## 👥 Participantes
+
+- Eduardo Henrique Tresmann
+- Cristiano Cardozo Lopes
+- Kaique Caldas Gotardo
+- José Victor B.L. Domingues
+
+---
+
 ## 🔧 Tecnologias Utilizadas
 
 -   ✅ **PHP 8.1+** com CodeIgniter 4

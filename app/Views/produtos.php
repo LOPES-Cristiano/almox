@@ -34,6 +34,8 @@
             <th>Categoria</th>
             <th>Unidade de Medida</th>
             <th>Saldo</th>
+            <th>Valor Unitário</th>
+            <th>Valor Total Estoque</th>
             <th>Ativo</th>
             <th>Observação</th>
             <th>Ações</th>
@@ -48,6 +50,7 @@
                     data-datacadastro="<?= esc($produto['pro_datacadastro']) ?>" 
                     data-procat_id="<?= esc($produto['procat_id']) ?>"
                     data-proum_id="<?= esc($produto['proum_id']) ?>"
+                    data-valor="<?= esc($produto['pro_valor']) ?>"
                     data-ativo="<?= esc($produto['pro_ativo']) ?>"
                     data-observacao="<?= esc($produto['pro_observacao']) ?>"
                 >
@@ -57,6 +60,8 @@
                     <td><?= esc($produto['procat_descricao']) ?></td>
                     <td><?= esc($produto['proum_descricao']) ?></td>
                     <td><?= esc($produto['saldo_estoque']) ?></td>
+                    <td><?= number_format($produto['pro_valor'], 2, ',', '.') ?></td>
+                    <td><?= number_format($produto['valor_estoque'], 2, ',', '.') ?></td>
                     <td>
                     <?php if ($produto['pro_ativo']): ?>
                         <img src="<?= base_url('svg/check.svg') ?>" alt="Ativo" width="20" height="20">
@@ -106,6 +111,9 @@
                     <option value="<?= esc($unidade['proum_id']) ?>"><?= esc($unidade['proum_descricao']) ?></option>
                 <?php endforeach; ?>
             </select>
+
+            <label class="required" for="valorProduto">Valor Unitário:</label>
+            <input type="number" name="valor" id="valorProduto" class="inputForm" step="0.01" min="0" required>
 
             <label for="observacaoProduto">Observação:</label>
             <input type="text" name="observacao" id="observacaoProduto" class="inputForm">
@@ -215,6 +223,7 @@
             const datacadastro = tr.getAttribute('data-datacadastro');
             const categoria = tr.getAttribute('data-procat_id');
             const unidademedida = tr.getAttribute('data-proum_id');
+            const valor = tr.getAttribute('data-valor');
             const ativo = tr.getAttribute('data-ativo');
             const observacao = tr.getAttribute('data-observacao') || '';
 
@@ -230,6 +239,7 @@
             document.getElementById('descricaoProduto').value = descricao;
             document.getElementById('categoriaProduto').value = categoria;
             document.getElementById('unidademedidaProduto').value = unidademedida;
+            document.getElementById('valorProduto').value = valor;
             document.getElementById('ativoProduto').checked = ativo === '1';
             document.getElementById('observacaoProduto').value = observacao;
         });

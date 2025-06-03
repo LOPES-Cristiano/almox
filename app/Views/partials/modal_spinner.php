@@ -74,26 +74,66 @@
   .loader {
     width: 48px;
     height: 48px;
-    border: 4px solid #ccc;
-    border-top-color: #2196f3;
+    border: 3px dotted #000000;
+    border-style: solid solid dotted dotted;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
   }
 
-  #loading-spinner {
+  .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px dotted #ffd700;
+    border-style: solid solid dotted;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    animation: rotationBack 1s linear infinite;
+    transform-origin: center center;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotationBack {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+
+#loading-spinner {
     position: fixed;
-    inset: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.75);
-    z-index: 9998;
-    visibility: hidden;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 9999;
+    visibility: hidden; 
+}
 </style>
 
 <script>

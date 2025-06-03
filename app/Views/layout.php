@@ -25,15 +25,15 @@
         <img src="<?= base_url('svg/square-pen.svg') ?>" alt="ícone de caneta"> Cadastros
     </h3>
     <ul class="submenu">
-        <li><a href="<?= base_url('home/usuarios') ?>">Pessoa</a></li>
-        <li><a href="<?= base_url('home/produtos') ?>">Produto</a></li>
+        <li><a href="<?= base_url('pessoa') ?>">Pessoa</a></li>
+        <li><a href="<?= base_url('produto') ?>">Produto</a></li>
     </ul>
 
    
 
     <ul>
         <li>
-            <a href="<?= base_url('home/movimentos') ?>" class="menu-item">
+            <a href="<?= base_url('movimento') ?>" class="menu-item">
                 <img src="<?= base_url('svg/arrow-left-right.svg') ?>" alt="ícone de setas">
                 <span>Movimentações</span>
             </a>

@@ -60,6 +60,7 @@ CREATE TABLE PRODUTO (
     pro_ativo INT(1), 
     procat_id INT,
     proum_id INT,
+    pro_valor INT,
     CONSTRAINT FK_PRO_PROCAT FOREIGN KEY (procat_id) REFERENCES PRODUTOCATEGORIA(procat_id),
     CONSTRAINT FK_PRO_PROUM FOREIGN KEY (proum_id) REFERENCES PRODUTOUNIDADEMEDIDA(proum_id)
 );
@@ -71,6 +72,7 @@ CREATE TABLE ARMAZEM (
     arm_datacadastro DATE,
     arm_observacao VARCHAR(250),
     arm_ativo INT(1),
+    arm_valor DECIMAL(10,2)  null default 0,
     CONSTRAINT FK_ARM_PRO FOREIGN KEY (pro_id) REFERENCES PRODUTO(pro_id)
 );
 
@@ -98,6 +100,11 @@ CREATE TABLE MOVIMENTO (
 
 ALTER TABLE movimento ADD COLUMN mov_fornecedor VARCHAR(255) NULL;
 ALTER TABLE movimento ADD COLUMN mov_cliente VARCHAR(255) NULL;
+
+ALTER table produto add column pro_valor int null;
+alter table armazem add column arm_valor DECIMAL(10,2)  null default 0;
+
+
 
 ALTER TABLE movimento
 ADD COLUMN mov_quantidade DECIMAL(10,2) NOT NULL DEFAULT 0

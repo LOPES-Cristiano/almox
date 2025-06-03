@@ -8,7 +8,7 @@ class ProdutoModel extends Model
 {
     protected $table = 'produto';
     protected $primaryKey = 'pro_id';
-    protected $allowedFields = ['pro_descricao', 'pro_datacadastro', 'pro_observacao', 'pro_ativo', 'procat_id', 'proum_id'];
+    protected $allowedFields = ['pro_descricao', 'pro_datacadastro', 'pro_observacao', 'pro_ativo', 'procat_id', 'proum_id', 'pro_valor'];
     protected $returnType = 'array';
 
     public function countAtivos() {

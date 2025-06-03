@@ -9,25 +9,27 @@ $routes->get('/', 'LoginController::index');
 $routes->post('login/autenticar', 'LoginController::autenticar');
 $routes->get('login/logout', 'LoginController::logout');
 
-// Dashboard
+// Dashboard e relatórios
 $routes->get('home', 'HomeController::index');
-$routes->get('home/usuarios', 'HomeController::usuarios');
-$routes->post('home/usuarios/salvar', 'HomeController::salvarUsuario');
-$routes->get('home/usuarios/editar/(:num)', 'HomeController::editarUsuario/$1');
-$routes->post('home/usuarios/atualizar/(:num)', 'HomeController::atualizarUsuario/$1');
-$routes->post('home/usuarios/inserirTipoPessoa', 'HomeController::inserirTipoPessoa');
-
-$routes->get('home/produtos', 'HomeController::produtos');
-$routes->post('home/produtos/inserirProduto', 'HomeController::inserirProduto');
-$routes->post('home/produtos/atualizarProduto/(:num)', 'HomeController::atualizarProduto/$1');
-$routes->post('home/produtos/inserirCategoria', 'HomeController::inserirCategoria');
-$routes->post('home/produtos/inserirUnidadeMedida', 'HomeController::inserirUnidadeMedida');
-
-$routes->get('home/movimentos', 'HomeController::movimentos');
-$routes->get('home/movimentos/(:num)', 'HomeController::movimentos/$1');
-$routes->post('home/salvarMovimento', 'HomeController::salvarMovimento');
-$routes->post('home/salvarTipoMovimento', 'HomeController::salvarTipoMovimento');
-
 $routes->get('home/relatorios', 'HomeController::relatorios');
 $routes->get('home/gerarRelatorio', 'HomeController::gerarRelatorio');
+
+// Pessoa
+$routes->get('pessoa', 'PessoaController::index');
+$routes->post('pessoa/salvar', 'PessoaController::salvar');
+$routes->post('pessoa/atualizar/(:num)', 'PessoaController::atualizar/$1');
+$routes->post('pessoa/inserirTipoPessoa', 'PessoaController::inserirTipoPessoa');
+
+// Produto
+$routes->get('produto', 'ProdutoController::index');
+$routes->post('produto/inserirProduto', 'ProdutoController::inserirProduto');
+$routes->post('produto/atualizarProduto/(:num)', 'ProdutoController::atualizarProduto/$1');
+$routes->post('produto/inserirCategoria', 'ProdutoController::inserirCategoria');
+$routes->post('produto/inserirUnidadeMedida', 'ProdutoController::inserirUnidadeMedida');
+
+// Movimento
+$routes->get('movimento', 'MovimentoController::index');
+$routes->get('movimento/(:num)', 'MovimentoController::index/$1');
+$routes->post('movimento/salvar', 'MovimentoController::salvar');
+$routes->post('movimento/salvarTipoMovimento', 'MovimentoController::salvarTipoMovimento');
 

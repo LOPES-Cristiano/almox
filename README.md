@@ -54,7 +54,6 @@ README.md
 ## ✅ Funcionalidades
 
 -   👤 Cadastro, edição e ativação/desativação de pessoas
--   🏷️ Cadastro de tipos de pessoa (Administrador, Cliente, Fornecedor, Vendedor, etc) via modal
 -   📦 Cadastro e edição de produtos, categorias e unidades de medida
 -   🔄 Controle de entradas e saídas de estoque (movimentações)
 -   📊 Dashboard com gráficos e tabelas
@@ -131,11 +130,8 @@ php spark serve
 ## 🧩 Novidades e Recursos Avançados
 
 -   Modal global para relatórios, acessível de qualquer tela
--   Cadastro de tipos de pessoa via aside/modal
 -   Todos os formulários seguem padrão visual e de acessibilidade
--   Overlay único para todos os asides
 -   Responsividade aprimorada
--   Código organizado e comentado
 
 ---
 
@@ -151,7 +147,7 @@ php spark serve
 ## 🗃️ Dados padrão inseridos no banco
 
 -   Tipos de pessoa: Administrador, Cliente, Fornecedor, Vendedor
--   Usuário admin: admin@admin.com (senha: admin123)
+-   Usuário admin: admin@admin.com (senha: 12345678)
 -   Estrutura pronta para produtos, categorias, unidades, movimentações
 
 ---

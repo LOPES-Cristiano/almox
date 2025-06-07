@@ -22,6 +22,7 @@
     --amarelo: #ffff00;
     --amarelo-ouro: #ffd700;
     --amarelo-escuro: #ffa500;
+    --amarelo-muito-escuro: #ffc400;
     --amarelo-mostarda: #ffdb58;
     --amarelo-pastel: #fafad2;
 
@@ -63,12 +64,20 @@ thead th {
     text-align: left;
     font-weight: 600;
     color: var(--cinza-suave);
-    border-bottom: 1px solid var(--cinza-medio);
 }
 
 tbody td {
     padding: 14px 20px;
-    border-bottom: 1px solid var(--cinza-medio);
+    border: 1px solid var(--cinza-medio);
+}
+
+tbody img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: flex;
+    justify-self: center;
 }
 
 tbody tr:hover {
@@ -85,21 +94,26 @@ tbody tr:hover {
 }
 
 .btnEdit {
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid var(--azul-marinho);
-    color: var(--azul-marinho);
-    border-radius: 6px;
-    font-weight: 500;
-    transition: 0.5s ease;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+    width: 100px;
+    height: 40px;
+    border: none;
+    background-color: var(--amarelo-muito-escuro);
+    color: var(--preto-fosco);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-.btnEdit:hover {
-    background-color: var(--azul-marinho);
-    border: 1px solid var(--cinza-suave);
-    color: var(--cinza-suave);
-    cursor: pointer;
+.btnEdit:hover,
+.btnEdit:focus {
+    background-color: var(--amarelo-ouro);
+    color: var(--preto-fosco);
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.13);
 }
 
 .tableButton {

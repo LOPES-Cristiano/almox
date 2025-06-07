@@ -89,7 +89,7 @@
 
     <div id="modalContent">
        
-        <form class="form" id="formProduto" method="post" action="<?= base_url('home/produtos/inserirProduto') ?>">
+        <form class="form" id="formProduto" method="post" action="<?= base_url('produto/inserirProduto') ?>">
             <?= csrf_field() ?>
             <input type="hidden" name="pro_id" id="pro_id" value="" >
 
@@ -129,7 +129,7 @@
         </form>
 
       
-        <form class="form" id="formCategoria" method="post" action="<?= base_url('home/produtos/inserirCategoria') ?>" >
+        <form class="form" id="formCategoria" method="post" action="<?= base_url('produto/inserirCategoria') ?>" >
             <?= csrf_field() ?>
 
             <label class="required" for="descricaoCategoria">Descrição:</label>
@@ -142,7 +142,7 @@
         </form>
 
       
-        <form class="form" id="formUnidade" method="post" action="<?= base_url('home/produtos/inserirUnidadeMedida') ?>">
+        <form class="form" id="formUnidade" method="post" action="<?= base_url('produto/inserirUnidadeMedida') ?>">
             <?= csrf_field() ?>
 
             <label class="required" for="descricaoUnidade">Descrição:</label>
@@ -190,7 +190,7 @@
         modalAside.classList.add('open');
         overlay.style.display = 'flex';
         modalAside.querySelector('#modalTitle').textContent = 'Inserir Produto';
-        formProduto.action = "<?= base_url('home/produtos/inserirProduto') ?>";
+        formProduto.action = "<?= base_url('produto/inserirProduto') ?>";
         document.getElementById('pro_id').value = '';
     });
 
@@ -201,7 +201,7 @@
         modalAside.classList.add('open');
         overlay.style.display = 'flex';
         modalAside.querySelector('#modalTitle').textContent = 'Inserir Categoria de Produto';
-        formCategoria.action = "<?= base_url('home/produtos/inserirCategoria') ?>";
+        formCategoria.action = "<?= base_url('produto/inserirCategoria') ?>";
     });
 
     btnOpenInsertUnidade.addEventListener('click', () => {
@@ -211,7 +211,7 @@
         modalAside.classList.add('open');
         overlay.style.display = 'flex';
         modalAside.querySelector('#modalTitle').textContent = 'Inserir Unidade de Medida';
-        formUnidade.action = "<?= base_url('home/produtos/inserirUnidadeMedida') ?>";
+        formUnidade.action = "<?= base_url('produto/inserirUnidadeMedida') ?>";
     });
 
     document.querySelectorAll('.btnEdit').forEach(btn => {
@@ -233,7 +233,7 @@
             modalAside.classList.add('open');
             overlay.style.display = 'flex';
             modalAside.querySelector('#modalTitle').textContent = 'Editar Produto';
-            formProduto.action = "<?= base_url('home/produtos/atualizarProduto/') ?>" + pro_id;
+            formProduto.action = "<?= base_url('produto/atualizarProduto/') ?>" + pro_id;
 
             document.getElementById('pro_id').value = pro_id;
             document.getElementById('descricaoProduto').value = descricao;

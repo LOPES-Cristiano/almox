@@ -49,7 +49,9 @@
                     </td>
 
                     <td>
-                        <button class="btnEdit" data-id="<?= esc($pessoa['pes_id']) ?>" >Editar</button>
+                        <button class="btnEdit" data-id="<?= esc($pessoa['pes_id']) ?>">
+                            Editar
+                        </button>
                     </td>
                 </tr>
             <?php endforeach; ?>

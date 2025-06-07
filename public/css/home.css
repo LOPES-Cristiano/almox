@@ -49,6 +49,7 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {

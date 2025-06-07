@@ -47,8 +47,7 @@
 #formUnidade,
 #formUsuario,
 #formPessoa,
-#formTipoPessoa
-#formMovimento,
+#formTipoPessoa #formMovimento,
 #formRelatorio {
     width: 100%;
     display: flex;
@@ -59,9 +58,11 @@
     font-size: 1rem;
     color: var(--cinza-medio);
     font-family: 'Poppins', sans-serif;
+
 }
 
-#modalTitle, #relatorioAsideTitle {
+#modalTitle,
+#relatorioAsideTitle {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--cinza-medio);
@@ -107,6 +108,7 @@
     vertical-align: middle;
     margin-right: 10px;
     transition: background-color 0.3s, border-color 0.3s;
+    box-shadow: 3px 3px var(--cinza-escuro);
 }
 
 .custom-checkbox input:checked + .checkmark {
@@ -178,7 +180,7 @@ aside.modal-aside {
     width: min(400px, 100vw);
     height: 100vh;
     background: var(--preto-claro, #222);
-    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease, display 0.2s;
     z-index: 1001;
     padding: 20px 24px 24px 24px;
@@ -205,7 +207,8 @@ aside.modal-aside .close-btn {
     z-index: 1002;
 }
 
-#relatorioAsideContent, #modalContent {
+#relatorioAsideContent,
+#modalContent {
     width: 100%;
     margin-top: 10px;
 }

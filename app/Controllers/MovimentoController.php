@@ -48,7 +48,7 @@ class MovimentoController extends BaseController
             ->join('pessoa AS pessoa_fornecedor', 'pessoa_fornecedor.pes_id = movimento.mov_fornecedor', 'left')
             ->join('pessoa AS pessoa_cliente', 'pessoa_cliente.pes_id = movimento.mov_cliente', 'left')
             ->where('movimento.movt_id', $tipo)
-            ->orderBy('mov_data', 'DESC')
+            ->orderBy('movimento.mov_data', 'DESC')
             ->findAll();
         return view('movimentos/index', [
             'movimentos' => $movimentos,

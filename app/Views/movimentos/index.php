@@ -14,8 +14,8 @@
 </div>
 
 <div class="tab-buttons">
-    <a href="<?= base_url('home/movimentos/1') ?>" class="tab <?= $tipoSelecionado == 1 ? 'active' : '' ?>">Entradas</a>
-    <a href="<?= base_url('home/movimentos/2') ?>" class="tab <?= $tipoSelecionado == 2 ? 'active' : '' ?>">Saídas</a>
+    <a href="<?= base_url('movimento/1') ?>" class="tab <?= (isset($tipoSelecionado) && $tipoSelecionado == 1) ? 'active' : '' ?>">Entradas</a>
+    <a href="<?= base_url('movimento/2') ?>" class="tab <?= (isset($tipoSelecionado) && $tipoSelecionado == 2) ? 'active' : '' ?>">Saídas</a>
 </div>
 
 <table border="1" cellpadding="8" cellspacing="0" style="width: 100%;">
@@ -50,7 +50,7 @@
     <h2 id="modalTitle">Inserir Movimento</h2>
 
     <div id="modalContent">
-        <form class="form" id="formMovimento" method="post" action="<?= base_url('home/salvarMovimento') ?>">
+        <form class="form" id="formMovimento" method="post" action="<?= base_url('movimento/salvar') ?>">
             <?= csrf_field() ?>
 
             <label class="required" for="movimentoTipo">Tipo:</label>

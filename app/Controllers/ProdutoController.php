@@ -27,6 +27,7 @@ class ProdutoController extends BaseController
         $builder->join('produtocategoria', 'produto.procat_id = produtocategoria.procat_id');
         $builder->join('produtounidademedida', 'produto.proum_id = produtounidademedida.proum_id');
         $builder->join('armazem', 'armazem.pro_id = produto.pro_id', 'left');
+        $builder->orderBy('produto.pro_id', 'ASC');
         $produtos = $builder->get()->getResultArray();
         $categorias = $this->categoriaModel->findAll();
         $unidades = $this->unidadeMedidaModel->findAll();

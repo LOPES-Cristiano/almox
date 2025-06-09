@@ -15,10 +15,10 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 
 ## 👥 Participantes
 
-- Eduardo Henrique Tresmann
-- Cristiano Cardozo Lopes
-- Kaique Caldas Gotardo
-- José Victor B.L. Domingues
+-   Eduardo Henrique Tresmann
+-   Cristiano Cardozo Lopes
+-   Kaique Caldas Gotardo
+-   José Victor B.L. Domingues
 
 ---
 
@@ -38,7 +38,21 @@ O objetivo é facilitar o gerenciamento de pessoas, produtos, entradas e saídas
 ```
 /app
 ├── Controllers/
+│   ├── HomeController.php
+│   ├── PessoaController.php
+│   ├── ProdutoController.php
+│   ├── MovimentoController.php
+│   └── LoginController.php
 ├── Models/
+│   ├── PessoaModel.php
+│   ├── PessoaTipoModel.php
+│   ├── UsuarioModel.php
+│   ├── ProdutoModel.php
+│   ├── ProdutoCategoriaModel.php
+│   ├── ProdutoUnidadeMedidaModel.php
+│   ├── ArmazemModel.php
+│   ├── MovimentoModel.php
+│   └── MovimentoTipoModel.php
 ├── Views/
 │   ├── layout.php
 │   ├── home.php
@@ -147,6 +161,7 @@ php spark serve
 ## 📌 Padrões e Organização
 
 -   Estrutura **MVC** (Model-View-Controller)
+-   Controllers separados para cada domínio (Pessoa, Produto, Movimento, Dashboard)
 -   Organização modular por componentes reutilizáveis
 -   Separação clara entre controle, visualização e regra de negócio
 -   Uso de partials para formulários e modais
@@ -158,6 +173,14 @@ php spark serve
 -   Tipos de pessoa: Administrador, Cliente, Fornecedor, Vendedor
 -   Usuário admin: admin@admin.com (senha: 12345678)
 -   Estrutura pronta para produtos, categorias, unidades, movimentações
+
+---
+
+## 📱 Responsividade e Usabilidade
+
+-   Sidebar vira menu hamburger em telas menores de 500px
+-   Tabelas adaptam-se para visualização em dispositivos móveis, exibindo labels acima dos dados
+-   Formulários usam asides/modais, com visual moderno e overlay
 
 ---
 

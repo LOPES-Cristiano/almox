@@ -10,6 +10,11 @@
 </head>
 
 <body>
+<button id="hamburger" aria-label="Abrir menu" title="Abrir menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
 <div class="sidebar">
     <h2>AlmoX</h2>
     <ul>
@@ -98,6 +103,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 relatorioAside.classList.remove('open');
                 relatorioAside.style.display = 'none';
                 overlay.style.display = 'none';
+            }
+        });
+    }
+
+    const sidebar = document.querySelector('.sidebar');
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger && sidebar) {
+        hamburger.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+        // Fecha sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 500 && sidebar.classList.contains('open')) {
+                if (!sidebar.contains(e.target) && e.target !== hamburger && !hamburger.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
             }
         });
     }

@@ -49,7 +49,8 @@
                     data-descricao="<?= esc($produto['pro_descricao']) ?>" 
                     data-datacadastro="<?= esc($produto['pro_datacadastro']) ?>" 
                     data-procat_id="<?= esc($produto['procat_id']) ?>"
-                    data-proum_id="<?= esc($produto['proum_id']) ?>"
+                    data-proum_id="<?= esc($produto
+                    ['proum_id']) ?>"
                     data-valor="<?= esc($produto['pro_valor']) ?>"
                     data-ativo="<?= esc($produto['pro_ativo']) ?>"
                     data-observacao="<?= esc($produto['pro_observacao']) ?>"

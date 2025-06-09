@@ -1,102 +1,120 @@
-# Explicação Técnica do Código — Sistema de Almoxarifado
+# Sistema de Almoxarifado — Guia Técnico e Estrutural
 
-## Estrutura Geral
+## Visão Geral
 
-O projeto segue o padrão MVC (Model-View-Controller) utilizando o framework CodeIgniter 4. Abaixo, explico o papel de cada diretório e os principais arquivos:
+Este sistema de almoxarifado foi desenvolvido em **CodeIgniter 4** seguindo o padrão **MVC** (Model-View-Controller). Ele permite o controle de pessoas, produtos, movimentações de estoque, geração de relatórios em PDF e oferece uma interface moderna, responsiva e fácil de usar.
 
-### 1. app/
+---
 
-#### a) Controllers/
-Controladores são responsáveis por receber as requisições, processar dados (usando Models) e retornar as Views.
+## Estrutura do Projeto
 
-- **HomeController.php**: Controla a página inicial (dashboard). Busca dados agregados (quantidade de pessoas, produtos, movimentações, etc.) e envia para a view `home.php`.
-- **LoginController.php**: Gerencia autenticação de usuários (login/logout).
-- **MovimentoController.php**: Gerencia as movimentações de estoque (entrada/saída de produtos).
-- **PessoaController.php**: CRUD de pessoas, ativação/inativação, tipos de pessoas.
-- **ProdutoController.php**: CRUD de produtos, categorias, unidades de medida, ativação/inativação.
+### 1. Controllers (app/Controllers)
 
-#### b) Models/
-Modelos fazem a interface com o banco de dados.
+Os controllers recebem as requisições, processam dados, chamam os models e retornam as views.
 
-- **PessoaModel.php**: Manipula dados de pessoas.
-- **PessoaTipoModel.php**: Manipula tipos de pessoas.
-- **ProdutoModel.php**: Manipula dados de produtos.
-- **ProdutoCategoriaModel.php**: Manipula categorias de produtos.
-- **ProdutoUnidadeMedidaModel.php**: Manipula unidades de medida dos produtos.
-- **MovimentoModel.php**: Manipula movimentações de estoque.
-- **MovimentoTipoModel.php**: Manipula tipos de movimentação (entrada/saída).
-- **UsuarioModel.php**: Manipula dados de usuários do sistema.
-- **ArmazemModel.php**: (Se houver) manipula dados de armazéns.
+-   **HomeController**: Dashboard (resumo do sistema) e geração de relatórios PDF.
+-   **PessoaController**: Gerencia pessoas (usuários, clientes, fornecedores, etc).
+-   **ProdutoController**: Gerencia produtos, categorias e unidades de medida.
+-   **MovimentoController**: Gerencia movimentações de estoque (entradas e saídas).
+-   **LoginController**: Autenticação de usuários.
 
-#### c) Views/
-Views são os arquivos de interface (HTML + PHP).
+### 2. Models (app/Models)
 
-- **layout.php**: Template base, inclui cabeçalho, rodapé e define onde o conteúdo das páginas será inserido.
-- **home.php**: Dashboard principal, exibe cards com indicadores, tabelas de movimentações e estoques, e gráficos (ApexCharts).
-- **login.php**: Tela de login.
-- **produtos.php, usuarios.php, movimentos/**: Telas de listagem, cadastro e edição de produtos, usuários e movimentações.
-- **partials/**: Componentes reutilizáveis (menus, cabeçalhos, etc).
+Os models representam as tabelas do banco e encapsulam a lógica de acesso aos dados.
 
-#### d) Config/
-Configurações do sistema, como rotas, banco de dados, serviços, etc.
+-   **PessoaModel**: Pessoas (nome, tipo, observação, ativo, etc).
+-   **PessoaTipoModel**: Tipos de pessoa (Cliente, Fornecedor, etc).
+-   **UsuarioModel**: Usuários do sistema (login, senha, pessoa associada).
+-   **ProdutoModel**: Produtos (descrição, categoria, unidade, valor, ativo, etc).
+-   **ProdutoCategoriaModel**: Categorias de produto.
+-   **ProdutoUnidadeMedidaModel**: Unidades de medida dos produtos.
+-   **ArmazemModel**: Estoque de cada produto (quantidade, valor total).
+-   **MovimentoModel**: Movimentações de estoque (entrada/saída, produto, quantidade, fornecedor/cliente, data).
+-   **MovimentoTipoModel**: Tipos de movimentação (Entrada, Saída).
 
-- **Routes.php**: Define as rotas do sistema (URLs e seus controladores).
-- **Database.php**: Configuração de conexão com o banco de dados.
+### 3. Views (app/Views)
 
-#### e) Filters/
-Filtros de autenticação e autorização.
+As views são arquivos PHP/HTML que exibem a interface para o usuário.
 
-- **UsuarioLogado.php**: Garante que apenas usuários autenticados acessem determinadas rotas.
+-   **layout.php**: Layout base, inclui sidebar, header, scripts e o conteúdo principal.
+-   **home.php**: Dashboard com cards, gráficos e tabelas de resumo.
+-   **usuarios.php**: Lista de pessoas, formulário de cadastro/edição em aside/modal.
+-   **produtos.php**: Lista de produtos, formulário de cadastro/edição, categorias e unidades.
+-   **movimentos/index.php**: Lista de movimentações, formulário de entrada/saída.
+-   **partials/relatorio_form.php**: Formulário global para geração de relatórios PDF.
+-   **CSS (public/css/...)**: Estilos para tabelas, formulários, dashboard, etc.
 
-### 2. public/
-Arquivos públicos acessíveis pelo navegador.
+### 4. Config (app/Config)
 
-- **index.php**: Front controller do CodeIgniter.
-- **css/**: Estilos customizados (dashboard, forms, tabelas, etc).
-- **js/**: Scripts JS, incluindo gráficos.
-- **img/**, **svg/**: Imagens e ícones usados na interface.
+-   **Routes.php**: Define as rotas do sistema (URLs e seus controladores).
+-   **Database.php**: Configuração de conexão com o banco de dados.
 
-### 3. writable/
-Diretório para arquivos gerados pelo sistema (logs, uploads, cache, etc).
+### 5. Outros diretórios
 
-### 4. tests/
-Testes automatizados do sistema.
-
-### 5. composer.json / composer.lock
-Gerenciamento de dependências PHP.
+-   **public/**: Arquivos públicos (CSS, JS, imagens, index.php).
+-   **writable/**: Logs, uploads, cache.
+-   **tests/**: Testes automatizados.
+-   **composer.json / composer.lock**: Gerenciamento de dependências PHP.
 
 ---
 
 ## Fluxo de Funcionamento
 
-1. **Usuário acessa o sistema**: A requisição chega ao `public/index.php`, que inicializa o CodeIgniter.
-2. **Roteamento**: O arquivo `app/Config/Routes.php` direciona a requisição para o Controller correto.
-3. **Controller**: O Controller processa a lógica, consulta Models para buscar ou gravar dados.
-4. **Model**: O Model executa queries no banco de dados e retorna os dados ao Controller.
-5. **View**: O Controller carrega a View, passando os dados necessários.
-6. **Renderização**: A View monta o HTML, insere dados dinâmicos e scripts (ex: gráficos ApexCharts).
-7. **Resposta**: O navegador exibe a página ao usuário.
+1. **Login**: Usuário acessa o sistema e faz login.
+2. **Dashboard**: Vê o resumo do estoque, movimentações e gráficos.
+3. **Cadastros**: Pode cadastrar/editar pessoas, produtos, categorias e unidades.
+4. **Movimentações**: Registra entradas e saídas de produtos, atualizando o estoque e o valor total automaticamente.
+5. **Relatórios**: Gera relatórios em PDF a partir de qualquer tela, usando o formulário global.
 
 ---
 
-## Destaques do Dashboard (`home.php`)
+## Funcionalidades e Recursos
 
-- Exibe indicadores de pessoas e produtos (ativos/inativos).
-- Tabela com as últimas movimentações de estoque.
-- Tabela com os maiores estoques.
-- Diversos gráficos (donut, barras, pizza) usando ApexCharts, alimentados por dados vindos do Controller.
-- Utiliza variáveis PHP para inserir dados dinâmicos no HTML e nos scripts JS.
-
----
-
-## Segurança
-
-- Filtros de autenticação para proteger rotas.
-- Uso de funções como `esc()` para evitar XSS.
-- Validação de dados nos Controllers e Models.
+-   **Dashboard**: Cards com indicadores, tabelas de movimentações e estoques, gráficos (ApexCharts).
+-   **Cadastro de Pessoas**: Usuários, clientes, fornecedores, tipos de pessoa.
+-   **Cadastro de Produtos**: Produtos, categorias, unidades de medida, valor unitário.
+-   **Movimentações**: Entradas e saídas de estoque, controle de saldo e valor total do estoque.
+-   **Relatórios em PDF**: Geração de relatórios a partir dos dados do dashboard.
+-   **Responsividade**: Sidebar vira menu hamburger em telas pequenas, tabelas adaptam-se ao mobile.
+-   **Acessibilidade**: Labels, botões e formulários seguem boas práticas.
+-   **Segurança**: Filtros de autenticação, CSRF, senhas com hash.
 
 ---
 
-## Resumo
+## Responsividade e Usabilidade
 
-O projeto é modular, organizado e segue boas práticas do CodeIgniter. Cada parte tem responsabilidade clara: Controllers processam lógica, Models acessam dados, Views exibem a interface. O dashboard é dinâmico e visual, facilitando o acompanhamento do almoxarifado.
+-   **Sidebar**: Vira menu hamburger em telas menores de 500px.
+-   **Tabelas**: Adaptam-se para visualização em dispositivos móveis, exibindo labels acima dos dados.
+-   **Formulários**: Usam asides/modais, com visual moderno e overlay.
+
+---
+
+## Relatórios PDF
+
+-   Geração de relatórios a partir do dashboard, exportando dados em PDF (usando mPDF).
+-   Relatórios disponíveis: Pessoas por tipo, Produtos por categoria/unidade, Maiores estoques, Últimas movimentações.
+
+---
+
+## Dicas de Uso
+
+-   Use o menu lateral para navegar entre cadastros, movimentações e relatórios.
+-   Utilize o botão hamburger em dispositivos móveis para acessar o menu.
+-   Os formulários de cadastro/edição abrem em asides (modais laterais), facilitando o uso sem sair da tela principal.
+-   Relatórios podem ser gerados a partir de qualquer tela, pelo menu lateral.
+
+---
+
+## Scripts e Banco de Dados
+
+-   O script SQL inicial está em `app/scripts/script001.sql`.
+-   Inclui estrutura de tabelas, dados iniciais (tipos, usuário admin, etc).
+-   Para rodar o sistema, basta importar o script no seu banco MySQL/MariaDB.
+
+---
+
+## Observações Finais
+
+-   O sistema é modular e fácil de expandir.
+-   Segue boas práticas de organização, segurança e usabilidade.
+-   Para dúvidas ou contribuições, consulte o README principal ou entre em contato com o desenvolvedor.

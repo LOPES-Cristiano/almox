@@ -62,13 +62,16 @@
                 <tr>
                     <th>Produto</th>
                     <th>Estoque</th>
+                    <th>Valor do Estoque</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($maioresEstoques as $item): ?>
+                <?php foreach (
+                    $maioresEstoques as $item): ?>
                     <tr>
                         <td><?= esc($item['produto']) ?></td>
                         <td><?= esc($item['estoque']) ?></td>
+                        <td><?= number_format($item['valor_estoque'], 2, ',', '.') ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

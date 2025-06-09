@@ -35,7 +35,17 @@
                 <td><?= $m['mov_descricao'] ?></td>
                 <td><?= $m['pro_descricao'] ?></td>
                 <td>
-                <?= $m['fornecedor_nome'] ?? $m['cliente_nome'] ?? '' ?>
+                <?php
+                    $fornecedor = $m['fornecedor_nome'] ?? '';
+                    $cliente = $m['cliente_nome'] ?? '';
+                    if ($fornecedor && $cliente) {
+                        echo esc($fornecedor) . ' / ' . esc($cliente);
+                    } elseif ($fornecedor) {
+                        echo esc($fornecedor);
+                    } elseif ($cliente) {
+                        echo esc($cliente);
+                    }
+                ?>
                 </td>
                 <td><?= $m['mov_observacao'] ?></td>
             </tr>

@@ -91,7 +91,7 @@ class HomeController extends BaseController
             ->findAll();
 
         $maioresEstoques = $armazemModel
-            ->select('produto.pro_descricao as produto, armazem.arm_quantidade as estoque')
+            ->select('produto.pro_descricao as produto, armazem.arm_quantidade as estoque, armazem.arm_valor as valor_estoque')
             ->join('produto', 'produto.pro_id = armazem.pro_id')
             ->orderBy('armazem.arm_quantidade', 'DESC')
             ->limit(6)

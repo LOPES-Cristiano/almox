@@ -68,7 +68,7 @@
 
     <h2 id="modalTitle">Inserir Pessoa</h2>
 
-    <form id="formPessoa" method="post" action="<?= base_url('home/usuarios/salvar') ?>">
+    <form id="formPessoa" method="post" action="<?= base_url('pessoa/salvar') ?>">
         <?= csrf_field() ?>
 
         <input type="hidden" name="pes_id" id="pes_id" value="" >
@@ -119,7 +119,7 @@
         modalAside.classList.add('open');
         overlay.style.display = 'flex';
         modalAside.querySelector('h2').textContent = 'Inserir Pessoa';
-        formPessoa.action = "<?= base_url('home/usuarios/salvar') ?>";
+        formPessoa.action = "<?= base_url('pessoa/salvar') ?>";
         document.getElementById('pes_id').value = '';
         document.getElementById('senha').required = true;
     });
@@ -147,7 +147,7 @@
         modalAside.classList.add('open');
         overlay.style.display = 'flex';
         modalAside.querySelector('h2').textContent = 'Editar Pessoa';
-        formPessoa.action = "<?= base_url('home/usuarios/atualizar/') ?>" + pes_id;
+        formPessoa.action = "<?= base_url('pessoa/atualizar/') ?>" + pes_id;
         
         document.getElementById('pes_id').value = pes_id;
         document.getElementById('nome').value = nome;

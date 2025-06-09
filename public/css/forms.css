@@ -47,7 +47,8 @@
 #formUnidade,
 #formUsuario,
 #formPessoa,
-#formTipoPessoa #formMovimento,
+#formTipoPessoa,
+#formMovimento,
 #formRelatorio {
     width: 100%;
     display: flex;
@@ -164,10 +165,10 @@
 .overlay {
     position: fixed;
     top: 0;
-    left: 250px;
+    left: 0;
     width: calc(100% - 250px);
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.94);
     display: none;
     z-index: 999;
 }
@@ -205,6 +206,11 @@ aside.modal-aside .close-btn {
     color: var(--vermelho-tomate, #ff6347);
     padding: 5px;
     z-index: 1002;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
 }
 
 #relatorioAsideContent,
